@@ -4,7 +4,7 @@
     <!-- font: poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
 
     <!-- font: belanosima -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,179 +26,12 @@
 
     <!-- Link Javascript to HTML -->
     <script src="assets/js/main.js"></script> 
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            font-family: 'Belanosima', sans-serif;
-        }
-
-        h2 {
-            color: #bb86fc;
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        ul {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .contact-info {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
-            border-left: 6px solid #bb86fc;
-            border-radius: 4px;
-        }
-
-        .contact-info p {
-            margin: 0;
-        }
-
-        .contact-info h3 {
-            margin-top: 0;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
-            color: #777;
-        }
-
-        a {
-            color: #bb86fc;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .header.sticky {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: #1e1e1e;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header .start {
-            display: flex;
-            align-items: center;
-        }
-
-        .header .logos img.logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .header .title {
-            color: #ffffff;
-            font-size: 20px;
-        }
-
-        .header-right a {
-            margin-left: 20px;
-            color: #bb86fc;
-            text-decoration: none;
-        }
-
-        .header-right a:hover {
-            color: #ffffff;
-        }
-
-        .footer1 {
-            padding: 20px;
-            background-color: #1e1e1e;
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .footer1 .footer-line {
-            width: 100%;
-            height: 1px;
-            background-color: #333;
-            margin-bottom: 20px;
-        }
-
-        .centerthefooter {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .centerthefooter .footer3 {
-            color: #777;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-
-        .centerthefooter .footer3:hover {
-            color: #ffffff;
-        }
-
-        /* Back to Top Button */
-        #myBtn {
-            display: none; /* Hidden by default */
-            position: fixed; /* Fixed/sticky position */
-            bottom: 20px; /* Place the button at the bottom of the page */
-            right: 30px; /* Place the button 30px from the right */
-            z-index: 99; /* Make sure it does not overlap */
-            border: none; /* Remove borders */
-            outline: none; /* Remove outline */
-            background-color: #bb86fc; /* Set a background color */
-            color: white; /* Text color */
-            cursor: pointer; /* Add a mouse pointer on hover */
-            padding: 15px; /* Some padding */
-            border-radius: 10px; /* Rounded corners */
-            font-size: 18px; /* Increase font size */
-        }
-
-        #myBtn:hover {
-            background-color: #7c4dff; /* Add a dark-grey background on hover */
-        }
-    </style>
 </head>
 <body>
-
     <!-- header -->
     <div class="header sticky">
         <div class="start">
-            <a class="logos" href="index.html"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
+            <a class="logos" href="index.html"><img class="logo" src="assets/img/OCRadarLogo.png" alt="OCRadar Logo"></a>
             <h4 class="title poppins-semibold">OCRadar</h4>
         </div>
 
@@ -211,43 +44,42 @@
 
     <!-- Terms of Service Content -->
     <div class="container">
-        <h1>Terms of Service</h1>
-        <p><strong>Last Updated:</strong> August 30th, 2024</p>
+        <h1 class="poppins-bold">Terms of Service</h1>
+        <p class="poppins-regular"><strong>Last Updated:</strong> August 30th, 2024</p>
 
-        <p>Welcome to OCRadar! By using our application, you agree to comply with and be bound by the following terms and conditions. Please review these terms carefully before using the app.</p>
+        <p class="poppins-regular">Welcome to OCRadar! By using our application, you agree to comply with and be bound by the following terms and conditions. Please review these terms carefully before using the app.</p>
 
-        <h2>1. Acceptance of Terms</h2>
-        <p>By accessing and using OCRadar, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+        <h2 class="poppins-semibold">1. Acceptance of Terms</h2>
+        <p class="poppins-regular">By accessing and using OCRadar, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
 
-        <h2>2. Changes to Terms</h2>
-        <p>OCRadar reserves the right to modify these terms at any time. Any changes will be posted on this page, and your continued use of the app after any changes constitutes acceptance of the new terms.</p>
+        <h2 class="poppins-semibold">2. Changes to Terms</h2>
+        <p class="poppins-regular">OCRadar reserves the right to modify these terms at any time. Any changes will be posted on this page, and your continued use of the app after any changes constitutes acceptance of the new terms.</p>
 
-        <h2>3. Use of the Application</h2>
-        <h3>3.1 License</h3>
-        <p>OCRadar grants you a non-exclusive, non-transferable, limited license to use the app for personal, non-commercial purposes in accordance with these terms.</p>
+        <h2 class="poppins-semibold">3. Use of the Application</h2>
+        <h3 class="poppins-medium">3.1 License</h3>
+        <p class="poppins-regular">OCRadar grants you a non-exclusive, non-transferable, limited license to use the app for personal, non-commercial purposes in accordance with these terms.</p>
 
-        <h3>3.2 Prohibited Conduct</h3>
-        <p>You agree not to use the app for any unlawful purpose or any purpose prohibited by these terms. You may not use the app in any way that could damage, disable, overburden, or impair the app, or interfere with any other party's use and enjoyment of the app.</p>
+        <h3 class="poppins-medium">3.2 Prohibited Conduct</h3>
+        <p class="poppins-regular">You agree not to use the app for any unlawful purpose or any purpose prohibited by these terms. You may not use the app in any way that could damage, disable, overburden, or impair the app, or interfere with any other party's use and enjoyment of the app.</p>
 
-        <h2>4. Intellectual Property</h2>
-        <p>All content included on OCRadar, such as text, graphics, logos, images, and software, is the property of OCRadar or its content suppliers and is protected by international copyright laws.</p>
+        <h2 class="poppins-semibold">4. Intellectual Property</h2>
+        <p class="poppins-regular">All content included on OCRadar, such as text, graphics, logos, images, and software, is the property of OCRadar or its content suppliers and is protected by international copyright laws.</p>
 
-        <h2>5. Disclaimer of Warranties</h2>
-        <p>The app is provided on an "as is" and "as available" basis. OCRadar makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+        <h2 class="poppins-semibold">5. Disclaimer of Warranties</h2>
+        <p class="poppins-regular">The app is provided on an "as is" and "as available" basis. OCRadar makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
 
-        <h2>6. Limitation of Liability</h2>
-<p>In no event shall OCRadar, its directors, employees, or affiliates, be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the app, even if OCRadar has been notified orally or in writing of the possibility of such damage.</p>
-<p>Additionally, OCRadar is not responsible for any medical information or advice provided by the app. The app is not a substitute for professional medical advice, diagnosis, or treatment. You should consult a qualified healthcare provider for any medical concerns or conditions. OCRadar disclaims any liability for any physical or health-related damages or adverse effects that may result from the use of the app.</p>
+        <h2 class="poppins-semibold">6. Limitation of Liability</h2>
+        <p class="poppins-regular">In no event shall OCRadar, its directors, employees, or affiliates, be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the app, even if OCRadar has been notified orally or in writing of the possibility of such damage.</p>
+        <p class="poppins-regular">Additionally, OCRadar is not responsible for any medical information or advice provided by the app. The app is not a substitute for professional medical advice, diagnosis, or treatment. You should consult a qualified healthcare provider for any medical concerns or conditions. OCRadar disclaims any liability for any physical or health-related damages or adverse effects that may result from the use of the app.</p>
 
+        <h2 class="poppins-semibold">7. Governing Law</h2>
+        <p class="poppins-regular">These terms are governed by and construed in accordance with the laws of the State of Virginia, and you irrevocably submit to the exclusive jurisdiction of the courts in that State.</p>
 
-        <h2>7. Governing Law</h2>
-<p>These terms are governed by and construed in accordance with the laws of the State of Virginia, and you irrevocably submit to the exclusive jurisdiction of the courts in that State.</p>
-
-        <h2>8. Contact Information</h2>
-        <p>If you have any questions about these Terms of Service, please contact us at:</p>
+        <h2 class="poppins-semibold">8. Contact Us</h2>
+        <p class="poppins-regular">If you have any questions about these Terms of Service, please feel free to contact us at:</p>
         <div class="contact-info">
-            <h3>OCRadar Support</h3>
-            <p>Email: ocradar.contact@gmail.com</p>
+            <h3 class="poppins-medium">OCRadar Support</h3>
+            <p class="poppins-regular">Email: contact@ocradar.com</p>
         </div>
     </div>
 
@@ -259,13 +91,12 @@
             <p class="footer3 poppins-regular">Copyright © OCRadar All Rights Reserved.</p>
             <p class="footer3 poppins-regular">|</p>
             <a class="footer3 poppins-regular" href="TermsOfService.html">Terms of Service</a>
-            <a class="footer3 poppins-regular">|</a>
+            <p class="footer3 poppins-regular">|</p>
             <a class="footer3 poppins-regular" href="privacy.html">Privacy Policy</a>
         </div>
     </div>
 
     <!-- Back to Top Button -->
     <button class="poppins-thin" onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
-
 </body>
 </html>
