@@ -47,8 +47,20 @@
             </div>
         </div>
 
-        <div>
-            <iframe class="googleforms" src="https://docs.google.com/forms/d/e/1FAIpQLSdEMrm-kP1dSaBkP9f-TTastzCCYRUFOdWudvvhRzZCgbdrmw/viewform?embedded=true" width="640" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <div class="contact-form">
+            <form action="mailto:contact@ocradar.com" method="post" enctype="text/plain">
+                <h2>Contact Us</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
         </div>
 
         <!-- footer -->
@@ -69,3 +81,55 @@
 
     </body>
 </html>
+
+<style>
+    body {
+        background-color: #121212; /* Dark background */
+        color: #ffffff; /* Light text color */
+    }
+    .contact-form {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        border: 1px solid #444; /* Darker border */
+        border-radius: 8px;
+        background-color: #1e1e1e; /* Dark form background */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .contact-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff; /* White heading */
+    }
+    .contact-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #e0e0e0; /* Light label color */
+    }
+    .contact-form input, .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #555; /* Darker input border */
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: #333; /* Dark input background */
+        color: #ffffff; /* Light input text */
+    }
+    .contact-form button {
+        width: 100%;
+        background-color: #6a0dad; /* Purple accent color */
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .contact-form button:hover {
+        background-color: #5a0a9d; /* Darker purple on hover */
+    }
+</style>
