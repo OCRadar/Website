@@ -24,6 +24,42 @@
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet">
 
+        <!-- Updated inline CSS for mobile responsiveness -->
+        <style>
+            @media screen and (max-width: 768px) {
+                body, html {
+                    background-color: black; /* Black background */
+                    color: white; /* White text */
+                    height: auto;
+                    overflow-y: auto;
+                    margin: 0; /* Remove default margin */
+                    padding: 0; /* Remove default padding */
+                }
+                .header, .footer1 {
+                    position: static !important; /* Ensure header and footer are static */
+                    text-align: center; /* Center header and footer text */
+                }
+                .beg, .beg-part {
+                    width: 100% !important; /* Full width for mobile */
+                    padding: 0; /* Remove padding */
+                    margin: 0; /* Remove margin */
+                    display: block !important; /* Stack content vertically */
+                }
+                .beg-head, .beg-head2, .beg-head3,
+                .beg-text, .beg-text2, .beg-text3,
+                .first, .second, .third,
+                .first1, .second1, .third1, .fourth1 {
+                    color: white !important; /* Ensure text is white */
+                    display: block !important; /* Stack headings and text */
+                    margin-bottom: 15px; /* Space between elements */
+                    font-size: inherit; /* Use default font size */
+                }
+                .img-wrapper, .phone, .animated-line {
+                    display: none !important; /* Hide unnecessary elements */
+                }
+            }
+        </style>
+
         <!-- Link Javascript to HTML -->
         <script src="assets/js/main.js"></script> 
 
