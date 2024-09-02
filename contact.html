@@ -1,34 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <style>
-        body {
-            background-color: #121212; /* Dark background */
-            color: #ffffff; /* Light text color */
-            text-align: center;
-            padding: 50px;
-        }
-        .email-link {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #6a0dad; /* Purple accent color */
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .email-link:hover {
-            background-color: #5a0a9d; /* Darker purple on hover */
-        }
-    </style>
-</head>
-<body>
-    <h2>Contact Us</h2>
-    <p>If you have any questions, feel free to reach out to us at:</p>
-    <p><strong>contact@ocradar.com</strong></p>
-    <a class="email-link" href="mailto:contact@ocradar.com">Email Us</a>
-</body>
+    <head>
+        <!-- font: poppins -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+        <!-- font: belanosima -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Contact Us</title>
+        <meta name="Oral Cancer Radar" content="description">
+        <meta name="keywords" content="Oral Cancer, Cancer, Oral Cancer Detector, Cancer Radar">
+
+        <!-- Favicons -->
+        <link href="assets/img/OCRadarLogo.png" rel="icon">
+
+        <!-- Vendor CSS Files-->
+        <!-- figure out later.. -->
+
+        <!-- Template Main CSS File -->
+        <link href="assets/css/style.css" rel="stylesheet">
+
+        <!-- Link Javascript to HTML -->
+        <script src="assets/js/main.js"></script> 
+
+    </head>
+    <body>
+
+        <!-- header -->
+        <div class="header sticky">
+            <div class="start">
+                <a class="logos" href="index.html"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
+                <h4 class="title poppins-semibold">OCRadar</h4>
+            </div>
+
+            <div class="header-right poppins-regular">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, feel free to reach out to us at:</p>
+            <p><strong>contact@ocradar.com</strong></p>
+            <a class="email-link" href="mailto:contact@ocradar.com">Email Us</a>
+        </div>
+
+        <!-- footer -->
+                <div class="footer1">
+            <div class="footer-line"></div>
+
+            <div class="centerthefooter">
+            <p class="footer3 poppins-regular">Copyright © 2024 OCRadar All Rights Reserved.</p>
+            <p class="footer3 poppins-regular">|</p>
+            <a class="footer3 poppins-regular" href="TermsOfService.html">Terms of Service</a>
+            <a class="footer3 poppins-regular">|</a>
+            <a class="footer3 poppins-regular" href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="poppins-thin" onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+
+    </body>
 </html>
+
+<style>
+    body {
+        font-family: 'SF Pro', sans-serif; /* Updated font family for body */
+        background-color: #000000; /* Black background */
+        color: #ffffff; /* White text color */
+        text-align: center;
+        padding: 50px;
+        line-height: 1.6; /* Improved line height */
+    }
+    h2, h4 {
+        font-family: 'JetBrains Mono', monospace; /* Updated font family for headings */
+        font-size: 3em; /* Increased heading size */
+        margin-bottom: 20px; /* Margin below heading */
+        color: #ffffff; /* White heading color */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    }
+    p {
+        font-size: 1.5em; /* Increased paragraph text size */
+        margin: 10px 0; /* Margin for spacing */
+        color: #ffffff; /* White text for contrast */
+    }
+    .email-link {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: #6a0dad; /* Purple accent color */
+        color: white;
+        text-decoration: none;
+        border-radius: 25px; /* Rounded button */
+        transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+        font-weight: bold; /* Bold text for emphasis */
+        font-size: 1.2em; /* Increased font size */
+    }
+    .email-link:hover {
+        background-color: #5a0a9d; /* Darker purple on hover */
+        transform: scale(1.1); /* Slightly larger on hover */
+    }
+</style>
