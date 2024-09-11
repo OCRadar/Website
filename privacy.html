@@ -34,14 +34,13 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Update font styles */
-        h1, h2, h3, h4 {
-            font-family: 'SF Pro', sans-serif; /* SF Pro for titles and headings */
-            font-weight: bold; /* Make titles and headings bold */
-        }
-        body, p, a {
-            font-family: 'SF Pro', sans-serif; /* SF Pro for body text */
+        /* Update font styles to use only SF Pro */
+        h1, h2, h3, h4, body, p, a {
+            font-family: 'SF Pro', sans-serif; /* SF Pro for all text */
             font-weight: normal; /* Normal weight for body text */
+        }
+        h1, h2, h3, h4 {
+            font-weight: bold; /* Make titles and headings bold */
         }
     </style>
 
@@ -58,10 +57,10 @@
     <div class="header sticky">
         <div class="start">
             <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png" alt="OCRadar Logo"></a>
-            <h4 class="title poppins-semibold">OCRadar</h4>
+            <h4 class="title" style="font-family: 'SF Pro', sans-serif;">OCRadar</h4> <!-- Updated font family -->
         </div>
 
-        <div class="header-right poppins-regular">
+        <div class="header-right sf-pro-regular">
             <a href="index">Home</a>
             <a href="about">About</a>
             <a href="contact">Contact Us</a>

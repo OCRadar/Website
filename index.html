@@ -32,15 +32,9 @@
         <script src="assets/js/main.js"></script> 
 
         <style>
-            /* Apply SF Pro Bold to all titles and headings */
-            h1, h2, h3, h4, h5, h6 {
+            /* Apply SF Pro to all text */
+            body, h1, h2, h3, h4, h5, h6, p, a {
                 font-family: 'SF Pro', sans-serif;
-                font-weight: bold; /* Make headings bold */
-            }
-            /* Apply SF Pro to everything else */
-            body, p, a {
-                font-family: 'SF Pro', sans-serif;
-                font-weight: normal; /* Ensure normal weight for other text */
             }
         </style>
 
@@ -59,10 +53,10 @@
         <div class="header sticky">
             <div class="start">
                 <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
-                <h4 class="title poppins-semibold">OCRadar</h4>
+                <h4 class="title" style="font-family: 'SF Pro', sans-serif;">OCRadar</h4> <!-- Updated font family -->
             </div>
 
-            <div class="header-right poppins-regular">
+            <div class="header-right sf-pro-regular">
                 <a href="index">Home</a>
                 <a href="about">About</a>
                 <a href="contact">Contact Us</a>
