@@ -32,17 +32,19 @@
         <script src="assets/js/main.js"></script> 
 
         <style>
-            /* Apply SF Pro Bold to all titles and headings */
-            h1, h2, h3, h4, h5, h6 {
+            /* Apply SF Pro to all text */
+            body, h1, h2, h3, h4, h5, h6, p, a {
                 font-family: 'SF Pro', sans-serif;
-                font-weight: bold; /* Make headings bold */
-            }
-            /* Apply SF Pro to everything else */
-            body, p, a {
-                font-family: 'SF Pro', sans-serif;
-                font-weight: normal; /* Ensure normal weight for other text */
             }
         </style>
+
+        <script>
+            // Redirect from .html to the clean URL
+            if (window.location.pathname.endsWith('.html')) {
+                const cleanUrl = window.location.pathname.replace('.html', '');
+                window.location.replace(cleanUrl);
+            }
+        </script>
 
     </head>
     <body>
@@ -50,14 +52,14 @@
         <!-- header -->
         <div class="header sticky">
             <div class="start">
-                <a class="logos" href="index.html"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
-                <h4 class="title poppins-semibold">OCRadar</h4>
+                <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
+                <h4 class="title" style="font-family: 'SF Pro', sans-serif;">OCRadar</h4> <!-- Updated font family -->
             </div>
 
-            <div class="header-right poppins-regular">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact Us</a>
+            <div class="header-right sf-pro-regular">
+                <a href="index">Home</a>
+                <a href="about">About</a>
+                <a href="contact">Contact Us</a>
             </div>
         </div>
     
@@ -71,10 +73,12 @@
             <br>
             
             <div class="text poppins-light">
-                <p>Start today to unlock a new way<br>
-                to harness artificial intelligence and<br>
-                machine learning made for both medical<br>
-                professionals and the general public</p>
+
+              <p>Harness the power of computer vision and<br>
+              machine learning through our innovative,<br>
+              one-of-a-kind application that has the<br>
+              potential to revolutionize cancer detection.</p>
+
             </div> 
             <div class="img-wrapper">
                 <img class="bground" src="assets/img/3dbackground2.jpg">
@@ -88,9 +92,9 @@
             <div class="centerthefooter">
             <p class="footer3 poppins-regular">Copyright © 2024 OCRadar All Rights Reserved.</p>
             <p class="footer3 poppins-regular">|</p>
-            <a class="footer3 poppins-regular" href="TermsOfService.html">Terms of Service</a>
+            <a class="footer3 poppins-regular" href="TermsOfService">Terms of Service</a>
             <a class="footer3 poppins-regular">|</a>
-            <a class="footer3 poppins-regular" href="privacy.html">Privacy Policy</a>
+            <a class="footer3 poppins-regular" href="privacy">Privacy Policy</a>
             </div>
         </div>
 

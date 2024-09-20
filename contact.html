@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
 
+        <link href="https://fonts.googleapis.com/css2?family=SF+Pro:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -30,20 +32,28 @@
         <!-- Link Javascript to HTML -->
         <script src="assets/js/main.js"></script> 
 
+        <script>
+            // Redirect from .html to the clean URL
+            if (window.location.pathname.endsWith('.html')) {
+                const cleanUrl = window.location.pathname.replace('.html', '');
+                window.location.replace(cleanUrl);
+            }
+        </script>
+
     </head>
     <body>
 
         <!-- header -->
         <div class="header sticky">
             <div class="start">
-                <a class="logos" href="index.html"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
-                <h4 class="title poppins-semibold">OCRadar</h4>
+                <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
+                <h4 class="title" style="font-family: 'SF Pro', sans-serif;">OCRadar</h4> <!-- Updated font family -->
             </div>
 
-            <div class="header-right poppins-regular">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact Us</a>
+            <div class="header-right sf-pro-regular">
+                <a href="index">Home</a>
+                <a href="about">About</a>
+                <a href="contact">Contact</a>
             </div>
         </div>
 
@@ -65,9 +75,6 @@
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
         <!-- footer -->
         <div class="footer1" style="position: relative; bottom: 0; width: 100%; text-align: center; font-size: 0.8em;">
             <div class="footer-line"></div>
@@ -75,9 +82,9 @@
             <div class="centerthefooter" style="line-height: 1.5;"> <!-- Adjusted line height -->
                 <p class="footer3 poppins-regular" style="margin: 0;">Copyright © 2024 OCRadar All Rights Reserved.</p> <!-- Removed margin -->
                 <p class="footer3 poppins-regular" style="margin: 0;">|</p>
-                <a class="footer3 poppins-regular" href="TermsOfService.html" style="margin: 0;">Terms of Service</a>
+                <a class="footer3 poppins-regular" href="TermsOfService" style="margin: 0;">Terms of Service</a>
                 <p class="footer3 poppins-regular" style="margin: 0;">|</p>
-                <a class="footer3 poppins-regular" href="privacy.html" style="margin: 0;">Privacy Policy</a>
+                <a class="footer3 poppins-regular" href="privacy" style="margin: 0;">Privacy Policy</a>
             </div>
         </div>
 
