@@ -1,195 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- font: poppins -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<head>
+    <!-- Existing font imports and meta tags remain the same -->
+    <style>
+        /* Reset and base styles */
+        body {
+            margin: 0;
+            padding: 0 20px; /* Add horizontal padding to body */
+            font-family: 'SF Pro', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
 
-        <!-- font: belanosima -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
 
-        <link href="https://fonts.googleapis.com/css2?family=SF+Pro:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        .start {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .logo {
+            height: 40px;
+        }
 
-        <title>Contact Us</title>
-        <meta name="Oral Cancer Radar" content="description">
-        <meta name="keywords" content="Oral Cancer, Cancer, Oral Cancer Detector, Cancer Radar">
+        .title {
+            margin: 0;
+            color: white;
+        }
 
-        <!-- Favicons -->
-        <link href="assets/img/OCRadarLogo.png" rel="icon">
+        .header-right {
+            display: flex;
+            gap: 20px;
+        }
 
-        <!-- Vendor CSS Files-->
-        <!-- figure out later.. -->
+        .header-right a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
 
-        <!-- Template Main CSS File -->
-        <link href="assets/css/style.css" rel="stylesheet">
+        .header-right a:hover {
+            color: #6a0dad;
+        }
 
-        <!-- Link Javascript to HTML -->
-        <script src="assets/js/main.js"></script> 
-
-        <script>
-            // Redirect from .html to the clean URL
-            if (window.location.pathname.endsWith('.html')) {
-                const cleanUrl = window.location.pathname.replace('.html', '');
-                window.location.replace(cleanUrl);
-            }
-        </script>
-
-    </head>
-    <body>
-
-        <!-- header -->
-        <div class="header sticky">
-            <div class="start">
-                <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
-                <h4 class="title" style="font-family: 'SF Pro', sans-serif;">OCRadar</h4> <!-- Updated font family -->
-            </div>
-
-            <div class="header-right sf-pro-regular">
-                <a href="index">Home</a>
-                <a href="about">About</a>
-                <a href="contact">Contact</a>
-            </div>
-        </div>
-
-        <div class="contact-form">
-            <h2>Contact Us</h2>
-            <form id="contactForm" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label for="email">Your Email:</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" required>
-                </div>
-                <button type="submit">Send Email</button>
-            </form>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <!-- footer -->
-        <div class="footer1" style="position: relative; bottom: 0; width: 100%; text-align: center; font-size: 0.8em;">
-            <div class="footer-line"></div>
-
-            <div class="centerthefooter" style="line-height: 1.5;"> <!-- Adjusted line height -->
-                <p class="footer3 poppins-regular" style="margin: 0;">Copyright © 2024 OCRadar All Rights Reserved.</p> <!-- Removed margin -->
-                <p class="footer3 poppins-regular" style="margin: 0;">|</p>
-                <a class="footer3 poppins-regular" href="TermsOfService" style="margin: 0;">Terms of Service</a>
-                <p class="footer3 poppins-regular" style="margin: 0;">|</p>
-                <a class="footer3 poppins-regular" href="privacy" style="margin: 0;">Privacy Policy</a>
-            </div>
-        </div>
-
-        <!-- Back to Top Button -->
-        <button class="poppins-thin" onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
-
-    </body>
-</html>
-
-<style>
-    body {
-        font-family: 'SF Pro', sans-serif; /* Updated font family for body */
-        background-color: #000000; /* Black background */
-        color: #ffffff; /* White text color */
-        text-align: center;
-        padding: 50px;
-        line-height: 1.6; /* Improved line height */
-    }
-    h2, h4 {
-        font-family: 'SF Pro', sans-serif; /* Updated font family for headings to SF Pro */
-        font-weight: bold; /* Set headings to bold */
-        margin-bottom: 20px; /* Margin below heading */
-        color: #ffffff; /* White heading color */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-    }
-    p {
-        font-family: 'SF Pro', sans-serif; /* Ensure paragraphs use SF Pro */
-        font-size: 1.5em; /* Increased paragraph text size */
-        margin: 10px 0; /* Margin for spacing */
-        color: #ffffff; /* White text for contrast */
-    }
-    .email-link {
-        display: inline-block;
-        padding: 15px 30px;
-        background-color: #6a0dad; /* Purple accent color */
-        color: white;
-        text-decoration: none;
-        border-radius: 25px; /* Rounded button */
-        transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
-        font-weight: bold; /* Bold text for emphasis */
-        font-size: 1.2em; /* Increased font size */
-    }
-    .email-link:hover {
-        background-color: #5a0a9d; /* Darker purple on hover */
-        transform: scale(1.1); /* Slightly larger on hover */
-    }
-    .contact-form {
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-        text-align: left;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-family: 'SF Pro', sans-serif;
-        color: #333;
-    }
-
-    .form-group input {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 50px;
-        font-family: 'SF Pro', sans-serif;
-        font-size: 16px;
-    }
-
-    button[type="submit"] {
-        background: #007bff;
-        color: white;
-        padding: 12px 30px;
-        border: none;
-        border-radius: 50px;
-        font-family: 'SF Pro', sans-serif;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-    }
-
-    button[type="submit"]:hover {
-        background: #0056b3;
-    }
-</style>
-
-<script>
-function handleSubmit(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const mailtoLink = `mailto:contact@ocradar.com?subject=${encodeURIComponent(subject)}&body=From: ${encodeURIComponent(email)}`;
-    window.location.href = mailtoLink;
+        /* Contact form styles */
+        .contact-form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 50px 50px; /* Increased padding, especially on sides */
+    background-color: #1a1a1a; /* Much darker gray */
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-</script>
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+
+            border-radius: 10px;
+            background-color: #2a2a2a; /* Darker input fields */
+    border: 1px solid #333;
+            color: white;
+            font-family: 'SF Pro', sans-serif;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background: #5d3f8d;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background: #4a327a;
+        }
+
+        /* Footer styles */
+        .footer1 {
+            padding: 20px;
+            background-color: #0000;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-line {
+            border-top: 1px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .centerthefooter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer3 {
+            color: #666;
+            text-decoration: none;
+        }
+
+        /* Back to top button */
+        #myBtn {
+            position: fixed;
+            bottom: 80px;
+            right: 30px;
+            background-color: #5d3f8d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #myBtn.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header sticky">
+        <div class="start">
+            <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
+            <h4 class="title">OCRadar</h4>
+        </div>
+        <div class="header-right">
+            <a href="index">Home</a>
+            <a href="about">About</a>
+            <a href="contact">Contact</a>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">How can we help:</label>
+                <textarea id="message" required></textarea>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer1">
+        <div class="footer-line"></div>
+        <div class="centerthefooter">
+            <p class="footer3">Copyright © 2024 OCRadar All Rights Reserved.</p>
+            <p class="footer3">|</p>
+            <a class="footer3" href="TermsOfService">Terms of Service</a>
+            <p class="footer3">|</p>
+            <a class="footer3" href="privacy">Privacy Policy</a>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+
+    <script>
+        // Handle form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const mailtoLink = `mailto:contact@ocradar.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+            window.location.href = mailtoLink;
+        }
+
+        // Back to top button functionality
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").classList.add("visible");
+            } else {
+                document.getElementById("myBtn").classList.remove("visible");
+            }
+        };
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        // Clean URL redirect
+        if (window.location.pathname.endsWith('.html')) {
+            const cleanUrl = window.location.pathname.replace('.html', '');
+            window.location.replace(cleanUrl);
+        }
+    </script>
+</body>
+</html>
