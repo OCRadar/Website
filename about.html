@@ -24,59 +24,6 @@
         <!-- Template Main CSS File -->
         <link href="assets/css/style.css" rel="stylesheet">
 
-        <!-- Updated inline CSS for mobile responsiveness -->
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-            @import url('https://fonts.googleapis.com/css2?family=SF+Pro&display=swap');
-
-            body, html {
-                font-family: 'SF Pro', sans-serif; /* Set font to SF Pro for body */
-            }
-            h4, h6, .title, .beg-head, .beg-head2, .beg-head3,
-            .beg-text, .beg-text2, .beg-text3,
-            .first, .second, .third,
-            .first1, .second1, .third1, .fourth1 {
-                font-family: 'SF Pro', sans-serif; /* Set font to SF Pro for all text */
-            }
-            /* Remove underlines from links */
-            a {
-                text-decoration: none; /* Remove underlines from all links */
-            }
-            @media screen and (max-width: 768px) {
-                body, html {
-                    background-color: black; /* Black background */
-                    color: white; /* White text */
-                    height: auto;
-                    overflow-y: auto;
-                    margin: 0; /* Remove default margin */
-                    padding: 0; /* Remove default padding */
-                }
-                .header, .footer1 {
-                    position: static !important; /* Ensure header and footer are static */
-                    text-align: center; /* Center header and footer text */
-                }
-                .beg, .beg-part {
-                    width: 100% !important; /* Full width for mobile */
-                    padding: 0; /* Remove padding */
-                    margin: 0; /* Remove margin */
-                    display: block !important; /* Stack content vertically */
-                }
-                .beg-head, .beg-head2, .beg-head3,
-                .beg-text, .beg-text2, .beg-text3,
-                .first, .second, .third,
-                .first1, .second1, .third1, .fourth1 {
-                    font-family: 'SF Pro', sans-serif; /* Set font to SF Pro for text */
-                    color: white !important; /* Ensure text is white */
-                    display: block !important; /* Stack headings and text */
-                    margin-bottom: 15px; /* Space between elements */
-                    font-size: inherit; /* Use default font size */
-                }
-                .img-wrapper, .phone, .animated-line {
-                    display: none !important; /* Hide unnecessary elements */
-                }
-            }
-        </style>
-
         <!-- Link Javascript to HTML -->
         <script src="assets/js/main.js"></script> 
 
@@ -87,7 +34,6 @@
                 window.location.replace(cleanUrl);
             }
         </script>
-
     </head>
     <body>
 
@@ -95,10 +41,10 @@
         <div class="header sticky">
             <div class="start">
                 <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
-                <h4 class="title" style="font-family: 'SF Pro', sans-serif;">OCRadar</h4> <!-- Updated font family -->
+                <h4 class="title poppins-semibold">OCRadar</h4>
             </div>
 
-            <div class="header-right sf-pro-regular">
+            <div class="header-right poppins-regular">
                 <a href="index">Home</a>
                 <a href="about">About</a>
                 <a href="contact">Contact Us</a>
@@ -115,16 +61,14 @@
                     
                     <div><img class="phone" src="assets/img/phone.png"></div>
 
-                    <div class="beg-text poppins-regular">
-                    <p>OCRadar is an innovative solution designed to revolutionize
+                    <p class="beg-text poppins-regular">OCRadar is an innovative solution designed to revolutionize
                     the detection of oral cancer. Harnessing the power of artificial
                     intelligence and machine learning, OCRadar offers a
                     sophisticated tool for both medical professionals and the general
                     public, facilitating early detection and improving the chances of
                     successful treatment.</p>
-                    </div>
 
-                <div class="beg-head2 font-face"><h4>Benefits</h4></div>
+                <div class="beg-head2 font-face"><h4 class="beg-head2">Benefits</h4></div>
                 <div class="beg-text2 poppins-regular">
                     <div class="first"><p class="p1">
                         <strong>Early Detection: </strong>Significantly increases the likelihood of identifying oral cancer at an 
@@ -142,24 +86,24 @@
 
                 <div class="beg-head3 font-face"><h4>Key Features</h4></div>
                 <div class="beg-text3 poppins-regular">
-                    <div><h6>Advanced AI Model</h6></div>
+                    <div><h6><u>Advanced AI Model</u></h6></div>
                     <div class="first1"><p class="pp1">
                         <strong>Custom Developed: </strong>Our AI model is meticulously trained on diverse datasets to ensure high accuracy in detecting early signs of oral cancer.
                     </p></div>
 
-                    <div><h6>State-of-the-Art iOS App</h6></div>
+                    <div><h6><u>State-of-the-Art iOS App</u></h6></div>
                     <div class="second1"><p class="pp2">
                         <strong>User-Friendly Interface: </strong>The app is designed with a simple, intuitive interface, making it accessible for users of all technical backgrounds.<br>
                         <strong>Real-Time Analysis: </strong>Users can capture images of oral regions, which the app analyzes in real time, providing immediate feedback on potential cancer indicators.
                     </p></div>
 
-                    <div><h6>For Medical Professionals</h6></div>
+                    <div><h6><u>For Medical Professionals</u></h6></div>
                     <div class="third1"><p class="pp3">          
                         <strong>Clinical Integration: </strong>Seamlessly integrates into clinical workflows, aiding in routine examinations and early detection strategies.<br>
                         <strong>Diagnostic Support: </strong>Acts as a second opinion, supporting medical professionals with AI-backed insights and reducing the margin of error in early detection.                                    
                     </p></div>
 
-                    <div><h6>For the General Public</h6></div>
+                    <div><h6><u>For the General Public</u></h6></div>
                     <div class="fourth1"><p class="pp3">          
                         <strong>Preventive Tool: </strong>Empowers individuals to monitor their oral health regularly, detecting abnormalities before they become serious.
                     </p></div>
@@ -171,11 +115,9 @@
         </div>
 
         <!-- footer -->
-                <div class="footer1">
-            <div class="footer-line"></div>
-
+        <div class="footer1">
             <div class="centerthefooter">
-            <p class="footer3 poppins-regular">Copyright © 2024 OCRadar All Rights Reserved.</p>
+            <p class="footer3 poppins-regular" src="">Copyright © 2024 OCRadar All Rights Reserved.</p>
             <p class="footer3 poppins-regular">|</p>
             <a class="footer3 poppins-regular" href="TermsOfService">Terms of Service</a>
             <a class="footer3 poppins-regular">|</a>
@@ -183,6 +125,8 @@
             </div>
         </div>
 
-        <!-- Back to Top Button -->
-        <button class="poppins-thin" onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+        <!-- back to top button -->
+        <button class="poppins-thin" onclick="topFunction()" id="myBtn" title="Go to top"><p>↑</p></button>
+
+    </body>
 </html>
