@@ -1,132 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- font: poppins -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCRadar - About Us</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Roboto Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="assets/img/OCRadarLogo.png" rel="shortcut icon">
+    <style>
+        body {
+            background-image: url("assets/img/3dbackground.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="assets/img/OCRadarLogo.png" alt="OCRadar Logo" class="logo">
+                <h2 class="roboto-bold logo-text">OCRadar</h2>
+            </div>
+            <div class="oval">
+                <nav>
+                    <ul class="roboto-regular links">
+                        <li><a href="index.html" class="roboto">Home</a></li>
+                        <li><a href="about.html" class="roboto">About Us</a></li>
+                        <li><a href="team.html" class="roboto">Team</a></li>
+                        <li><a href="contact.html" class="roboto">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-        <!-- font: belanosima -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <div class="aboutUsContainer">
+        <div>
+            <h1 class="roboto-bold title">Overview</h1>
+            <p class="subAbout roboto-regular">
+                OCRadar is an innovative solution designed to revolutionize the detection of oral cancer. Harnessing the power of 
+                artificial intelligence and machine learning, OCRadar offers a sophisticated tool for both medical professionals 
+                and the general public, facilitating early detection and improving the chances of successful treatment.
+            </p>
+            <div class="learnMoreContainer">
+                <p class="learnMore roboto-regular"><a href="contact.html">LEARN MORE</a></p>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0; padding: 0 5vw 0 7vw;">
+            <button id="leftArrow" class="arrowBtn" aria-label="Previous image" style="background:none;border:none;cursor:pointer;">
+                <!-- Left Arrow SVG -->
+                <svg width="50" height="50" viewBox="0 0 24 24" fill="white"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <img src="assets/img/mock1.png" alt="About Us Image" class="mockPhoto" id="mockImg">
+            <button id="rightArrow" class="arrowBtn" aria-label="Next image" style="background:none;border:none;cursor:pointer;padding: 0 10vw 0 0;">
+                <!-- Right Arrow SVG -->
+                <svg width="50" height="50" viewBox="0 0 24 24" fill="white"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+            </button>
+        </div>
+    </div>
+    <script>
+        const mockImg = document.getElementById('mockImg');
+        const leftArrow = document.getElementById('leftArrow');
+        const rightArrow = document.getElementById('rightArrow');
+        let showingMock1 = true;
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        function animateImage(newSrc, direction) {
+            // move current image out
+            mockImg.style.transition = 'transform 0.4s, opacity 0.4s';
+            mockImg.style.transform = direction === 'right' ? 'translateX(100px)' : 'translateX(-100px)';
+            mockImg.style.opacity = '0';
 
-        <title>About</title>
-        <meta name="Oral Cancer Radar" content="description">
-        <meta name="keywords" content="Oral Cancer, Cancer, Oral Cancer Detector, Cancer Radar">
+            setTimeout(() => {
+                // move new image off screen
+                mockImg.src = newSrc;
+                mockImg.style.transition = 'none';
+                mockImg.style.transform = direction === 'right' ? 'translateX(-100px)' : 'translateX(100px)';
+                mockImg.style.opacity = '0';
 
-        <!-- Favicons -->
-        <link href="assets/img/OCRadarLogo.png" rel="icon">
+                // animate image to center
+                setTimeout(() => {
+                    mockImg.style.transition = 'transform 0.4s, opacity 0.4s';
+                    mockImg.style.transform = 'translateX(0)';
+                    mockImg.style.opacity = '1';
+                }, 20);
+            }, 400);
+        }
 
-        <!-- Template Main CSS File -->
-        <link href="assets/css/style.css" rel="stylesheet">
-
-        <!-- Link Javascript to HTML -->
-        <script src="assets/js/main.js"></script> 
-
-        <script>
-            // Redirect from .html to the clean URL
-            if (window.location.pathname.endsWith('.html')) {
-                const cleanUrl = window.location.pathname.replace('.html', '');
-                window.location.replace(cleanUrl);
+        function switchImage(direction) {
+            if (showingMock1) {
+                animateImage("assets/img/mock2.png", direction);
+                showingMock1 = false;
+            } else {
+                animateImage("assets/img/mock1.png", direction);
+                showingMock1 = true;
             }
-        </script>
-    </head>
-    <body>
+        }
 
-        <!-- header -->
-        <div class="header sticky">
-            <div class="start">
-                <a class="logos" href="index"><img class="logo" src="assets/img/OCRadarLogo.png"></a>
-                <h4 class="title poppins-semibold">OCRadar</h4>
+        leftArrow.addEventListener('click', () => switchImage('right'));
+        rightArrow.addEventListener('click', () => switchImage('left'));
+    </script>
+    <footer>
+        <div class="footer-container roboto-regular">
+            <div class="footer1">
+                <a href="about.html" aria-current="page" class="footer-link w--current">About</a>
+                <a href="team.html" class="footer-link">Team</a>
+                <a href="contact.html" class="footer-link">Contact</a>
+                <a>ocradar.contact@gmail.com</a>
             </div>
-
-            <div class="header-right poppins-regular">
-                <a href="index">Home</a>
-                <a href="about">About</a>
-                <a href="contact">Contact Us</a>
-            </div>
-        </div>
-
-        <div class="beg">
-            <div class="img-wrapper">
-                <img class="bground" src="assets/img/3dbackground3.jpg">
-            </div>
-
-            <div class="beg-part">
-                <div class="beg-head font-face"><h4>Overview</h4></div>
-                    
-                    <div><img class="phone" src="assets/img/phone.png"></div>
-
-                    <p class="beg-text poppins-regular">OCRadar is an innovative solution designed to revolutionize
-                    the detection of oral cancer. Harnessing the power of artificial
-                    intelligence and machine learning, OCRadar offers a
-                    sophisticated tool for both medical professionals and the general
-                    public, facilitating early detection and improving the chances of
-                    successful treatment.</p>
-
-                <div class="beg-head2 font-face"><h4 class="beg-head2">Benefits</h4></div>
-                <div class="beg-text2 poppins-regular">
-                    <div class="first"><p class="p1">
-                        <strong>Early Detection: </strong>Significantly increases the likelihood of identifying oral cancer at an 
-                        early, more treatable stage.
-                    </p></div>
-                    <div class="second"><p class="p2">
-                        <strong>Improved Outcomes: </strong>Early intervention leads to better patient outcomes and higher survival 
-                        rates.
-                    </p></div>
-                    <div  class="third"><p class="p3">
-                        <strong>Accessible Healthcare: </strong><br>Bridges the gap between healthcare providers and the public, making 
-                        advanced diagnostic tools readily available to all.
-                    </p></div>
-                </div>
-
-                <div class="beg-head3 font-face"><h4>Key Features</h4></div>
-                <div class="beg-text3 poppins-regular">
-                    <div><h6><u>Advanced AI Model</u></h6></div>
-                    <div class="first1"><p class="pp1">
-                        <strong>Custom Developed: </strong>Our AI model is meticulously trained on diverse datasets to ensure high accuracy in detecting early signs of oral cancer.
-                    </p></div>
-
-                    <div><h6><u>State-of-the-Art iOS App</u></h6></div>
-                    <div class="second1"><p class="pp2">
-                        <strong>User-Friendly Interface: </strong>The app is designed with a simple, intuitive interface, making it accessible for users of all technical backgrounds.<br>
-                        <strong>Real-Time Analysis: </strong>Users can capture images of oral regions, which the app analyzes in real time, providing immediate feedback on potential cancer indicators.
-                    </p></div>
-
-                    <div><h6><u>For Medical Professionals</u></h6></div>
-                    <div class="third1"><p class="pp3">          
-                        <strong>Clinical Integration: </strong>Seamlessly integrates into clinical workflows, aiding in routine examinations and early detection strategies.<br>
-                        <strong>Diagnostic Support: </strong>Acts as a second opinion, supporting medical professionals with AI-backed insights and reducing the margin of error in early detection.                                    
-                    </p></div>
-
-                    <div><h6><u>For the General Public</u></h6></div>
-                    <div class="fourth1"><p class="pp3">          
-                        <strong>Preventive Tool: </strong>Empowers individuals to monitor their oral health regularly, detecting abnormalities before they become serious.
-                    </p></div>
-                </div>
-            </div>
-    
-            <div class="animated-line"></div>
-    
-        </div>
-
-        <!-- footer -->
-        <div class="footer1">
-            <div class="centerthefooter">
-            <p class="footer3 poppins-regular" src="">Copyright © 2025 OCRadar All Rights Reserved.</p>
-            <p class="footer3 poppins-regular">|</p>
-            <a class="footer3 poppins-regular" href="TermsOfService">Terms of Service</a>
-            <a class="footer3 poppins-regular">|</a>
-            <a class="footer3 poppins-regular" href="privacy">Privacy Policy</a>
+            <div class="line"></div>
+            <div class="footer2">
+                <div class="footer-copyright">© 2025 OCRadar. All rights reserved</div>
+                    <div class="footer-legal-block">
+                        <a href="#" class="footerLegal">Terms Of Use</a>
+                        <a href="#" class="footerLegal">Privacy Policy</a>
+                    </div>
             </div>
         </div>
-
-        <!-- back to top button -->
-        <button class="poppins-thin" onclick="topFunction()" id="myBtn" title="Go to top"><p>↑</p></button>
-
-    </body>
+    </footer>
+</body>
 </html>
+
