@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="""""en"></html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="""UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCRadar</title>
     <link rel="stylesheet" href="assets/css/style.css">
@@ -51,6 +51,60 @@
             opacity: 1;
             transform: translateY(-2px);
         }
+
+        /* Responsive typography */
+        .title { font-size: clamp(28px, 8vw, 5.4vw); }
+        .subtitle, .subAbout, .subContact { font-size: clamp(14px, 3.6vw, 1.3vw); }
+
+        /* Mobile layout */
+        @media (max-width: 900px) {
+          .header-container { flex-direction: column; align-items: stretch; gap: 3vw; padding: 4vw 5vw; }
+          .logo { width: clamp(28px, 8vw, 48px); height: auto; }
+          .logo-text { font-size: clamp(18px, 5vw, 32px); }
+
+          .oval { border-radius: 6vw; padding: 3vw 4vw; }
+          .links { gap: 6vw; flex-wrap: wrap; justify-content: space-between; font-size: clamp(12px, 3.7vw, 16px); }
+
+          /* HERO: 2-column instead of stacked */
+          .threedee { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 4vw; padding: 2vw 5vw; }
+          .threedee .title { grid-column: 1; padding: 0; font-size: clamp(24px, 7.2vw, 36px); line-height: 0.95; }
+          .title br { display: none; } /* remove forced line breaks on mobile */
+          spline-viewer { grid-column: 2; width: 44vw; height: 44vw; padding: 0; }
+
+          .subtitle { padding: 2vw 5vw; }
+          .learnMore { height: auto; padding: 2vw 0 0 0; }
+          .learnMore a { margin-left: 5vw; padding: 2.5vw 6vw; border-radius: 6vw; font-size: clamp(12px, 3.5vw, 16px); }
+
+          /* About */
+          .aboutUsContainer { flex-direction: column; padding: 0; }
+          .mockPhoto { width: min(80vw, 420px); height: auto; padding: 4vw 0 0 0; }
+          .subAbout { width: auto; padding: 0 6vw 4vw 6vw; }
+
+          /* Team */
+          .teamTitle { font-size: clamp(28px, 8vw, 5.4vw); padding: 8vw 5vw 4vw 5vw; }
+          .teamMembers { padding: 0 5vw 6vw 5vw; }
+          .member { padding: 4vw 5vw; font-size: clamp(14px, 3.6vw, 1.3vw); }
+          .photos { width: clamp(72px, 22vw, 120px); height: clamp(72px, 22vw, 120px); }
+
+          /* Contact */
+          .contactUsContainer { flex-direction: column; padding: 0 5vw; gap: 5vw; }
+          .formContainer { width: 100%; box-sizing: border-box; }
+          .email, .comment { width: 100%; }
+
+          /* Footer */
+          .footer-container { padding: 12vw 6vw 6vw 6vw; }
+          .footer1 { flex-wrap: wrap; gap: 4vw; font-size: clamp(12px, 3.5vw, 16px); }
+          .footer2 { flex-direction: column; gap: 2vw; align-items: flex-start; font-size: clamp(12px, 3.5vw, 16px); }
+          .footer-legal-block { gap: 4vw; }
+          .line { margin: 4vw 0; }
+        }
+
+        /* Featured logos: compact grid and smaller height on small screens */
+        .featured-logos { gap: clamp(1rem, 4vw, 2rem); }
+        .featured-logos img { height: clamp(36px, 12vw, 80px); width: auto; max-width: 100%; object-fit: contain; }
+        @media (max-width: 900px) {
+          .featured-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); justify-items: center; }
+        }
     </style>
 </head>
 <body>
@@ -99,9 +153,9 @@
       <ul class="featured-logos">
         <!-- Replace the href values with your article links and the src values with your logo file paths -->
         <li>
-          <a href="https://wtop.com/fairfax-county/2025/04/fairfax-co-students-crafting-app-to-find-signs-of-oral-cancer/" target="_blank" rel="noopener noreferrer" aria-label="WTOP">
-            <img src="assets/img/wtop.png" alt="WTOP logo">
-          </a>
+            <a href="https://wtop.com/fairfax-county/2025/04/fairfax-co-students-crafting-app-to-find-signs-of-oral-cancer/" target="_blank" rel="noopener noreferrer" aria-label="WTOP">
+                <img src="assets/img/wtop.png" alt="WTOP logo">
+              </a>
         </li>
         <li>
           <a href="https://www.fcps.edu/news/sixteen-years-old-and-solving-world-problems-oakton-high-school-juniors-tackle-oral-cancer" target="_blank" rel="noopener noreferrer" aria-label="FCPS">
