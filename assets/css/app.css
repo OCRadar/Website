@@ -472,10 +472,7 @@ main { flex: 1; }
     width: 68px; height: 68px; flex: none;
     border-radius: 50%;
     object-fit: cover;
-    filter: grayscale(100%);
-    transition: filter .35s ease;
 }
-.member:hover .who img { filter: none; }
 .who h2 {
     font-family: var(--serif);
     font-weight: 400;
