@@ -6,8 +6,9 @@
 :root {
     --black:   #0a0a0a;
     --near:    #131313;
+    /* One paper tone only. Sections are separated by rules and space,
+       never by a second shade of off-white. */
     --cream:   #f4f1ea;
-    --cream-2: #eae5da;
     --ink:     #14130f;
     --ink-2:   #5a554c;
     --ink-3:   #8d867a;
@@ -19,7 +20,7 @@
     --hair:      #ddd7ca;
     --hair-dark: rgba(246, 243, 236, 0.16);
 
-    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
     --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
     --edge: clamp(1.5rem, 5vw, 4.5rem);
@@ -71,7 +72,6 @@ main { flex: 1; }
 .band-dark  { background: var(--black); color: var(--on-dark); }
 .band-near  { background: var(--near);  color: var(--on-dark); }
 .band-cream { background: var(--cream); }
-.band-sink  { background: var(--cream-2); }
 
 .inner {
     width: 100%;
@@ -81,23 +81,27 @@ main { flex: 1; }
 }
 
 /* ---------- Type ---------- */
+/* Fraunces: soft terminals and low stroke contrast at display optical
+   sizes, so large headlines stay warm and easy to read rather than
+   thinning out the way a high-contrast face does. */
 .display {
     font-family: var(--serif);
     font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: -0.012em;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 55, "WONK" 0;
+    line-height: 1.06;
+    letter-spacing: -0.014em;
     text-wrap: balance;
 }
 .d-1 { font-size: clamp(3.1rem, 7.4vw, 6.4rem); }
 .d-2 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); }
 .d-3 { font-size: clamp(2rem, 3.6vw, 3.1rem); }
 
+/* Sentence case, natural tracking. No small-caps label treatment. */
 .eyebrow {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-3);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink-2);
 }
 .band-dark .eyebrow,
 .band-near .eyebrow { color: var(--on-dark-3); }
@@ -164,6 +168,8 @@ main { flex: 1; }
     align-items: center;
     gap: 0.55rem;
     font-family: var(--serif);
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 55, "WONK" 0;
     font-size: 1.45rem;
     letter-spacing: -0.005em;
 }
@@ -248,34 +254,90 @@ main { flex: 1; }
     animation: hover 8s ease-in-out infinite;
     will-change: transform;
 }
+/* --- Lighting ---------------------------------------------------------
+   One key light from the upper RIGHT, matching the bright sweep in the
+   background art. Everything below follows from that single decision:
+   shadows fall down and to the LEFT, and they soften and fade as they
+   travel away from the object. */
+
+/* Key bloom: the light source spilling into the scene, upper right. */
+.mark::before {
+    content: "";
+    position: absolute;
+    top: -10%; right: -12%;
+    width: 78%; aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(255, 216, 186, .20) 0%,
+        rgba(255, 186, 150, .07) 45%,
+        transparent 70%);
+    filter: blur(42px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Stacked drop-shadows trace the object's real silhouette, so its edges
+   are shadowed on the side facing away from the key. Offsets grow while
+   opacity drops: soft-area-light falloff, not one flat blob. */
+.mark spline-viewer,
+.mark-still {
+    filter:
+        drop-shadow(-3px 4px 3px rgba(0, 0, 0, .5))
+        drop-shadow(-9px 13px 11px rgba(0, 0, 0, .34))
+        drop-shadow(-22px 30px 26px rgba(0, 0, 0, .24))
+        drop-shadow(-44px 58px 54px rgba(0, 0, 0, .16));
+}
+
 .mark spline-viewer {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     opacity: 0;
     transition: opacity 1s ease;
-    filter: drop-shadow(0 30px 44px rgba(0,0,0,.55));
 }
 .mark.live spline-viewer { opacity: 1; }
 .mark-still {
     position: absolute; inset: 0; margin: auto;
     width: 52%; height: fit-content;
-    filter: drop-shadow(0 26px 40px rgba(0,0,0,.55));
     transition: opacity .7s ease;
 }
 .mark.live .mark-still { opacity: 0; }
+
+/* Cast shadow on the ground: pushed left of the object and sheared, the
+   way a raking light throws a shadow rather than dropping it straight down. */
 .mark-floor {
     position: absolute;
-    left: 50%; bottom: 3%;
+    left: 43%; bottom: 2%;
     z-index: 1;
-    width: 44%; height: 6%;
+    width: 52%; height: 7%;
     translate: -50% 0;
+    transform: skewX(-16deg);
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,.6) 0%, rgba(0,0,0,.26) 45%, transparent 72%);
-    filter: blur(16px);
+    background: radial-gradient(ellipse at center,
+        rgba(0, 0, 0, .58) 0%, rgba(0, 0, 0, .24) 45%, transparent 72%);
+    filter: blur(19px);
     animation: settle 8s ease-in-out infinite;
 }
-@keyframes hover  { 0%,100% { translate: 0 0; }        50% { translate: 0 -13px; } }
-@keyframes settle { 0%,100% { scale: 1 1; opacity:.85; } 50% { scale:.88 .9; opacity:.55; } }
+
+/* Ambient occlusion: the tight, dark, barely-blurred core right at the
+   contact point. This is what actually sells the object as resting in
+   the scene rather than floating over it. */
+.mark-ao {
+    position: absolute;
+    left: 48%; bottom: 4.5%;
+    z-index: 1;
+    width: 26%; height: 3.2%;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center,
+        rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .2) 55%, transparent 75%);
+    filter: blur(7px);
+    animation: occlude 8s ease-in-out infinite;
+}
+
+@keyframes hover  { 0%,100% { translate: 0 0; }         50% { translate: 0 -13px; } }
+/* Shadows shrink and lighten as the object rises: distance softens them. */
+@keyframes settle { 0%,100% { scale: 1 1; opacity: .9; } 50% { scale: .86 .88; opacity: .5; } }
+@keyframes occlude{ 0%,100% { scale: 1 1; opacity: .95; } 50% { scale: .8 .85; opacity: .45; } }
 
 /* Press row pinned to the bottom of the hero, full width */
 .press {
@@ -285,27 +347,28 @@ main { flex: 1; }
     border-top: 1px solid var(--hair-dark);
     background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,.55) 40%);
 }
+/* Centred column: label over a centred logo row, so the label no longer
+   hangs off the left edge with a gap before the logos. */
 .press-in {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: clamp(1rem, 4vw, 3rem);
-    padding-block: 1.6rem;
+    gap: 1.15rem;
+    padding-block: 1.9rem;
 }
 .press ul {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex: 1;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: clamp(1.2rem, 4vw, 3rem);
+    gap: clamp(1.75rem, 5vw, 4rem);
     list-style: none;
 }
 .press img {
-    height: clamp(22px, 2.5vw, 31px);
+    height: clamp(30px, 3.6vw, 46px);
     width: auto;
     object-fit: contain;
-    opacity: .72;
+    opacity: .78;
     transition: opacity .25s ease;
 }
 .press a:hover img, .press a:focus-visible img { opacity: 1; }
@@ -314,11 +377,14 @@ main { flex: 1; }
 .sec { padding-block: clamp(4.5rem, 11vw, 9rem); }
 .sec-sm { padding-block: clamp(3rem, 7vw, 5.5rem); }
 
+/* Label sits directly above its content. A wide left rail stranded these
+   short labels in empty space and made them read as tacked on. */
 .split {
-    display: grid;
-    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
-    gap: clamp(2rem, 6vw, 5rem);
-    align-items: start;
+    display: block;
+}
+.split > .eyebrow {
+    display: block;
+    margin-bottom: 1.1rem;
 }
 .rule-top { border-top: 1px solid var(--hair); }
 .band-dark .rule-top, .band-near .rule-top { border-top-color: var(--hair-dark); }
@@ -341,9 +407,11 @@ main { flex: 1; }
 .point h3 {
     font-family: var(--serif);
     font-weight: 400;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 55, "WONK" 0;
     font-size: clamp(1.5rem, 2.4vw, 2.05rem);
     letter-spacing: -0.01em;
-    line-height: 1.1;
+    line-height: 1.15;
 }
 .point p { color: var(--ink-2); max-width: 52ch; }
 .band-dark .point p { color: var(--on-dark-2); }
@@ -417,15 +485,15 @@ main { flex: 1; }
 .who h2 {
     font-family: var(--serif);
     font-weight: 400;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 55, "WONK" 0;
     font-size: clamp(1.4rem, 2.2vw, 1.85rem);
     letter-spacing: -0.01em;
-    line-height: 1.1;
+    line-height: 1.15;
 }
 .who .role {
-    margin-top: 0.4rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    margin-top: 0.45rem;
+    font-size: 0.88rem;
     color: var(--ink-3);
     line-height: 1.5;
 }
@@ -448,9 +516,7 @@ main { flex: 1; }
 
 .f { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.9rem; }
 .f label {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 0.88rem;
     color: var(--ink-3);
 }
 .f input, .f textarea {
@@ -484,8 +550,8 @@ main { flex: 1; }
 }
 .foot-brand p { margin-top: 1rem; color: var(--on-dark-3); font-size: 0.9rem; max-width: 26ch; }
 .foot h3 {
-    font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 0.92rem;
+    font-weight: 400;
     color: var(--on-dark-3);
     margin-bottom: 1.1rem;
 }
@@ -543,8 +609,7 @@ html.js .up.seen { opacity: 1; translate: 0 0; }
     }
     .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
-    .press-in { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .press ul { justify-content: flex-start; }
+    .press ul { gap: clamp(1.25rem, 5vw, 2.5rem); }
 }
 
 @media (max-width: 760px) {
