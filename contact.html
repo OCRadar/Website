@@ -3,96 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCRadar - Contact Us</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Roboto Font -->
+    <title>Contact — OCRadar</title>
+    <meta name="description" content="Get in touch with the OCRadar team for product questions, sponsorship opportunities, or joining our mission.">
+    <link rel="icon" href="assets/img/OCRadarLogo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="assets/img/OCRadarLogo.png" rel="shortcut icon">
-    <style>
-        body {
-            background-image: url("assets/img/3dbackground.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            margin: 0;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>document.documentElement.classList.add("js");</script>
+    <script src="assets/js/main.js" defer></script>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="assets/img/OCRadarLogo.png" alt="OCRadar Logo" class="logo">
-                <h2 class="roboto-bold logo-text">OCRadar</h2>
-            </div>
-            <div class="oval">
-                <nav>
-                    <ul class="roboto-regular links">
-                        <li><a href="index.html" class="roboto">Home</a></li>
-                        <li><a href="about.html" class="roboto">About Us</a></li>
-                        <li><a href="team.html" class="roboto">Team</a></li>
-                        <li><a href="contact.html" class="roboto">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <header class="site-header solid">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <img src="assets/img/OCRadarLogo.png" alt="">
+                <span>OCRadar</span>
+            </a>
+            <nav class="site-nav" id="siteNav" aria-label="Main">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a class="nav-cta" href="contact.html" aria-current="page">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
 
-    <div class="contactUsContainer">
-        <div>
-            <h1 class="roboto-bold title">Contact Us</h1>
-            <p class="subAbout roboto-regular">
-                We’re thrilled that you’re interested in connecting with us! Whether you have questions about our products, want to explore sponsorship opportunities, or are eager to join our team, we’re here to help.
+    <main>
+        <section class="page-head container">
+            <span class="label reveal">Contact</span>
+            <h1 class="d1 reveal" style="--d: 0.08s">We’re here to help.</h1>
+            <p class="lede reveal" style="--d: 0.16s">
+                Whether you have questions about our products, want to explore sponsorship
+                opportunities, or are eager to join our team, we’d love to hear from you.
             </p>
-            <p class="subAbout roboto-regular">
-                <b>Interested?</b>
-            </p>                
-            <p class="subAbout roboto-regular">
-                If you’d like to learn more about our innovative offerings or have specific inquiries, please reach out. We’re excited to share how our products can benefit you!
-            </p>
-            <p class="subAbout roboto-regular">
-                <b>Sponsorship Opportunities</b>
-            </p>
-            <p class="subAbout roboto-regular">
-                Are you looking to partner with us? We welcome sponsorship inquiries and would love to discuss how we can collaborate to create impactful experiences together.
-            </p>
-            <p class="subAbout roboto-regular">
-                <b>Get in Touch</b>
-            </p>
-            <p class="subAbout roboto-regular">
-                Please fill out the form or contact us directly through ocradar.contact@gmail.com We look forward to connecting with you soon! Thank you for reaching out! Your interest means the world to us.
-            </p>
-        </div>
-        <div class="formContainer roboto-regular">
-            <form action="mailto:ocradar.contact@gmail.com" method="get" enctype="text/plain" class="action">
-                Email:<br>
-                <input class="roboto-regular email" type="text" name="mail"><br>
-                Comment:<br>
-                <input class="roboto-regular comment" type="text" name="comment" size="50"><br><br>
-                <input type="submit" value="Send" class="roboto-regular submit">
-            </form>
-        </div>
-    </div>
-    
-    <footer>
-        <div class="footer-container roboto-regular">
-            <div class="footer1">
-                <a href="about.html" aria-current="page" class="footer-link w--current">About</a>
-                <a href="team.html" class="footer-link">Team</a>
-                <a href="contact.html" class="footer-link">Contact</a>
-                <a>ocradar.contact@gmail.com</a>
+        </section>
+
+        <section class="contact-grid container">
+            <div class="contact-copy">
+                <div class="contact-block reveal">
+                    <h2>Questions</h2>
+                    <p>If you’d like to learn more about our offerings or have specific inquiries,
+                       please reach out, we’re happy to share how OCRadar can help.</p>
+                </div>
+                <div class="contact-block reveal" style="--d: 0.08s">
+                    <h2>Sponsorship</h2>
+                    <p>We welcome sponsorship inquiries and would love to discuss how we can
+                       collaborate to create impactful experiences together.</p>
+                </div>
+                <div class="contact-block reveal" style="--d: 0.16s">
+                    <h2>Email</h2>
+                    <p><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></p>
+                </div>
             </div>
-            <div class="line"></div>
-            <div class="footer2">
-                <div class="footer-copyright">© 2026 OCRadar. All rights reserved</div>
-                    <div class="footer-legal-block">
-                        <a href="#" class="footerLegal">Terms Of Use</a>
-                        <a href="#" class="footerLegal">Privacy Policy</a>
+
+            <div class="contact-form reveal" style="--d: 0.12s">
+                <span class="label">Send a message</span>
+                <form id="contactForm">
+                    <div class="field">
+                        <label for="email">Your email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
                     </div>
+                    <div class="field">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                    <p class="form-note">Sending opens your email app.</p>
+                </form>
             </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="index.html">
+                    <img src="assets/img/OCRadarLogo.png" alt="">
+                    <span>OCRadar</span>
+                </a>
+                <p>AI-powered early detection of oral cancer.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Pages</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="termsOfUse.html">Terms of Use</a></li>
+                    <li><a href="privacyPolicy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>© 2026 OCRadar. All rights reserved.</span>
         </div>
     </footer>
 </body>

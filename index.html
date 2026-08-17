@@ -1,201 +1,163 @@
 <!DOCTYPE html>
-<html lang="""""en"></html>
+<html lang="en">
 <head>
-    <meta charset="""UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCRadar</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Roboto Font -->
+    <meta name="description" content="OCRadar uses artificial intelligence and machine learning to help medical professionals and the general public detect oral cancer early.">
+    <meta property="og:title" content="OCRadar">
+    <meta property="og:description" content="A new way to detect oral cancer with AI-powered early detection.">
+    <meta property="og:url" content="https://ocradar.com/">
+    <meta property="og:image" content="https://ocradar.com/assets/img/OCRadarLogo.png">
+    <link rel="icon" href="assets/img/OCRadarLogo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="assets/img/OCRadarLogo.png" rel="shortcut icon">
-
-    <style>
-         body {
-            background-image: url("assets/img/3dbackground.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            margin: 0;
-        }
-
-        /* Featured section */
-        .featured-title {
-            text-align: center;
-            color: #ffffff;
-            font-size: 2rem; /* bigger title */
-        }
-        .featured-logos {
-            display: flex;               /* side-by-side */
-            justify-content: center;     /* center row */
-            align-items: center;
-            gap: 5rem;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-wrap: wrap;             /* wrap on small screens */
-        }
-        .featured-logos img {
-            height: 15rem; /* fixed small size, no px */
-            width: auto;
-            object-fit: contain;
-            filter: grayscale(100%);
-            opacity: 0.85;
-            transition: filter 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
-        }
-        .featured-logos a:hover img,
-        .featured-logos a:focus img {
-            filter: none;
-            opacity: 1;
-            transform: translateY(-2px);
-        }
-
-        /* Responsive typography */
-        .title { font-size: clamp(28px, 8vw, 5.4vw); }
-        .subtitle, .subAbout, .subContact { font-size: clamp(14px, 3.6vw, 1.3vw); }
-
-        /* Mobile layout */
-        @media (max-width: 900px) {
-          .header-container { flex-direction: column; align-items: stretch; gap: 3vw; padding: 4vw 5vw; }
-          .logo { width: clamp(28px, 8vw, 48px); height: auto; }
-          .logo-text { font-size: clamp(18px, 5vw, 32px); }
-
-          .oval { border-radius: 6vw; padding: 3vw 4vw; }
-          .links { gap: 6vw; flex-wrap: wrap; justify-content: space-between; font-size: clamp(12px, 3.7vw, 16px); }
-
-          /* HERO: 2-column instead of stacked */
-          .threedee { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 4vw; padding: 2vw 5vw; }
-          .threedee .title { grid-column: 1; padding: 0; font-size: clamp(24px, 7.2vw, 36px); line-height: 0.95; }
-          .title br { display: none; } /* remove forced line breaks on mobile */
-          spline-viewer { grid-column: 2; width: 44vw; height: 44vw; padding: 0; }
-
-          .subtitle { padding: 2vw 5vw; }
-          .learnMore { height: auto; padding: 2vw 0 0 0; }
-          .learnMore a { margin-left: 5vw; padding: 2.5vw 6vw; border-radius: 6vw; font-size: clamp(12px, 3.5vw, 16px); }
-
-          /* About */
-          .aboutUsContainer { flex-direction: column; padding: 0; }
-          .mockPhoto { width: min(80vw, 420px); height: auto; padding: 4vw 0 0 0; }
-          .subAbout { width: auto; padding: 0 6vw 4vw 6vw; }
-
-          /* Team */
-          .teamTitle { font-size: clamp(28px, 8vw, 5.4vw); padding: 8vw 5vw 4vw 5vw; }
-          .teamMembers { padding: 0 5vw 6vw 5vw; }
-          .member { padding: 4vw 5vw; font-size: clamp(14px, 3.6vw, 1.3vw); }
-          .photos { width: clamp(72px, 22vw, 120px); height: clamp(72px, 22vw, 120px); }
-
-          /* Contact */
-          .contactUsContainer { flex-direction: column; padding: 0 5vw; gap: 5vw; }
-          .formContainer { width: 100%; box-sizing: border-box; }
-          .email, .comment { width: 100%; }
-
-          /* Footer */
-          .footer-container { padding: 12vw 6vw 6vw 6vw; }
-          .footer1 { flex-wrap: wrap; gap: 4vw; font-size: clamp(12px, 3.5vw, 16px); }
-          .footer2 { flex-direction: column; gap: 2vw; align-items: flex-start; font-size: clamp(12px, 3.5vw, 16px); }
-          .footer-legal-block { gap: 4vw; }
-          .line { margin: 4vw 0; }
-        }
-
-        /* Featured logos: compact grid and smaller height on small screens */
-        .featured-logos { gap: clamp(1rem, 4vw, 2rem); }
-        .featured-logos img { height: clamp(36px, 12vw, 80px); width: auto; max-width: 100%; object-fit: contain; }
-        @media (max-width: 900px) {
-          .featured-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); justify-items: center; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>document.documentElement.classList.add("js");</script>
+    <script src="assets/js/main.js" defer></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.53/build/spline-viewer.js"></script>
 </head>
-<body>
-    <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="assets/img/OCRadarLogo.png" alt="OCRadar Logo" class="logo">
-                <h2 class="roboto-bold logo-text">OCRadar</h2>
-            </div>
-            <div class="oval">
-                <nav>
-                    <ul class="roboto-regular links">
-                        <li><a href="index.html" class="roboto">Home</a></li>
-                        <li><a href="about.html" class="roboto">About Us</a></li>
-                        <li><a href="team.html" class="roboto">Team</a></li>
-                        <li><a href="contact.html" class="roboto">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
+<body class="has-hero">
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <img src="assets/img/OCRadarLogo.png" alt="">
+                <span>OCRadar</span>
+            </a>
+            <nav class="site-nav" id="siteNav" aria-label="Main">
+                <ul>
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a class="nav-cta" href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
 
-    <div class="threedee">
-            <h1 class="roboto-bold title">A new way to <br>detect oral <br>cancer</h1>
-            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.53/build/spline-viewer.js"></script>
-            <spline-viewer url="https://prod.spline.design/VUBT7xxQ3qdPOztO/scene.splinecode"></spline-viewer>
-    </div>
+    <main>
+        <section class="hero-section">
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div class="hero container">
+                <h1 class="d1 reveal">A new way to detect oral cancer.</h1>
+                <p class="hero-sub reveal" style="--d: 0.1s">
+                    Artificial intelligence and machine learning for early detection,
+                    made for both medical professionals and the general public.
+                </p>
+                <div class="hero-cta reveal" style="--d: 0.2s">
+                    <a class="btn btn-primary" href="about.html">Learn more</a>
+                    <a class="btn btn-ghost" href="contact.html">Contact us</a>
+                </div>
+            </div>
+            <div class="hero-3d reveal" id="hero3d" style="--d: 0.3s">
+                <div class="ground-shadow" aria-hidden="true"></div>
+                <div class="stage">
+                    <img class="spline-fallback" src="assets/img/OCRadarLogo.png" alt="">
+                    <spline-viewer url="https://prod.spline.design/VUBT7xxQ3qdPOztO/scene.splinecode" aria-label="Interactive 3D OCRadar logo"></spline-viewer>
+                </div>
+            </div>
+        </section>
 
-    <div>
-        <p class="subtitle roboto-regular">
-            Start today to unlock a new way to harness artificial<br>
-            intelligence and machine learning made for both<br>
-            medical professionals and the general public
-        </p>
-        <div class="learnMoreContainer">
-            <p class="learnMore roboto-regular"><a href="contact.html">LEARN MORE</a></p>
+        <section class="section" aria-label="Press coverage">
+            <div class="container featured-inner reveal">
+                <span class="label">Featured on</span>
+                <ul class="featured-logos">
+                    <li>
+                        <a href="https://wtop.com/fairfax-county/2025/04/fairfax-co-students-crafting-app-to-find-signs-of-oral-cancer/" target="_blank" rel="noopener noreferrer" aria-label="WTOP">
+                            <img src="assets/img/wtop.png" alt="WTOP logo" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.fcps.edu/news/sixteen-years-old-and-solving-world-problems-oakton-high-school-juniors-tackle-oral-cancer" target="_blank" rel="noopener noreferrer" aria-label="FCPS">
+                            <img src="assets/img/fcps.png" alt="FCPS logo" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://dc.koreatimes.com/article/20250409/1559471" target="_blank" rel="noopener noreferrer" aria-label="Korea Times">
+                            <img src="assets/img/koreatimes.png" alt="Korea Times logo" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.secretchina.com/news/gb/2025/04/10/1080410.html" target="_blank" rel="noopener noreferrer" aria-label="Vision Times China">
+                            <img src="assets/img/visiontimeschina.png" alt="Vision Times China logo" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/techroastshow/reel/DJh3DyTxumJ/" target="_blank" rel="noopener noreferrer" aria-label="Techroast Show">
+                            <img src="assets/img/techroastshow.png" alt="Techroast Show logo" loading="lazy">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section section-rule mission">
+            <div class="container">
+                <span class="label reveal">Our mission</span>
+                <p class="mission-text reveal" style="--d: 0.1s">
+                    OCRadar harnesses artificial intelligence to make early detection of
+                    oral cancer accessible to everyone, improving the chances of
+                    successful treatment.
+                </p>
+            </div>
+        </section>
+
+        <section class="section section-rule" aria-label="What OCRadar does">
+            <div class="container cols">
+                <div class="col reveal">
+                    <h3>Early detection</h3>
+                    <p>Catching oral cancer sooner, when treatment has the greatest chance of success.</p>
+                </div>
+                <div class="col reveal" style="--d: 0.1s">
+                    <h3>For professionals and the public</h3>
+                    <p>A sophisticated tool for clinicians that stays simple enough for everyday use.</p>
+                </div>
+                <div class="col reveal" style="--d: 0.2s">
+                    <h3>Across platforms</h3>
+                    <p>Built for Apple, Android, and Windows, on the devices people already use.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="index.html">
+                    <img src="assets/img/OCRadarLogo.png" alt="">
+                    <span>OCRadar</span>
+                </a>
+                <p>AI-powered early detection of oral cancer.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Pages</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="termsOfUse.html">Terms of Use</a></li>
+                    <li><a href="privacyPolicy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-
-    <br>
-    <br>
-
-    <!-- Featured on -->
-    <section class="featured">
-      <p class="featured-title roboto-regular">Featured on</p>
-      <ul class="featured-logos">
-        <!-- Replace the href values with your article links and the src values with your logo file paths -->
-        <li>
-            <a href="https://wtop.com/fairfax-county/2025/04/fairfax-co-students-crafting-app-to-find-signs-of-oral-cancer/" target="_blank" rel="noopener noreferrer" aria-label="WTOP">
-                <img src="assets/img/wtop.png" alt="WTOP logo">
-              </a>
-        </li>
-        <li>
-          <a href="https://www.fcps.edu/news/sixteen-years-old-and-solving-world-problems-oakton-high-school-juniors-tackle-oral-cancer" target="_blank" rel="noopener noreferrer" aria-label="FCPS">
-            <img src="assets/img/fcps.png" alt="FCPS logo">
-          </a>
-        </li>
-        <li>
-          <a href="http://dc.koreatimes.com/article/20250409/1559471" target="_blank" rel="noopener noreferrer" aria-label="Korea Times">
-            <img src="assets/img/koreatimes.png" alt="Korea Times logo">
-          </a>
-        </li>
-        <li>
-          <a href="https://www.secretchina.com/news/gb/2025/04/10/1080410.html" target="_blank" rel="noopener noreferrer" aria-label="Vision Times China">
-            <img src="assets/img/visiontimeschina.png" alt="Vision Times China logo">
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/techroastshow/reel/DJh3DyTxumJ/" target="_blank" rel="noopener noreferrer" aria-label="Techroast Show">
-            <img src="assets/img/techroastshow.png" alt="Techroast Show logo">
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <footer>
-        <div class="footer-container roboto-regular">
-            <div class="footer1">
-                <a href="about.html" aria-current="page" class="footer-link w--current">About</a>
-                <a href="team.html" class="footer-link">Team</a>
-                <a href="contact.html" class="footer-link">Contact</a>
-                <a>ocradar.contact@gmail.com</a>
-            </div>
-            <div class="line"></div>
-            <div class="footer2">
-                <div class="footer-copyright">© 2026 OCRadar. All rights reserved</div>
-                    <div class="footer-legal-block">
-                        <a href="termsOfUse.html" class="footerLegal">Terms Of Use</a>
-                        <a href="privacyPolicy.html" class="footerLegal">Privacy Policy</a>
-                    </div>
-            </div>
+        <div class="container footer-bottom">
+            <span>© 2026 OCRadar. All rights reserved.</span>
         </div>
     </footer>
 </body>
