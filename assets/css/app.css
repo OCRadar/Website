@@ -10,20 +10,19 @@
        never by a second shade of off-white. */
     --cream:   #f4f1ea;
     --ink:     #14130f;
-    --ink-2:   #5a554c;
-    --ink-3:   #8d867a;
+    --ink-2:   #45413a;
+    --ink-3:   #6b655b;
 
     --on-dark:   #f6f3ec;
-    --on-dark-2: rgba(246, 243, 236, 0.68);
-    --on-dark-3: rgba(246, 243, 236, 0.42);
+    --on-dark-2: rgba(246, 243, 236, 0.88);
+    --on-dark-3: rgba(246, 243, 236, 0.66);
 
     --hair:      #ddd7ca;
     --hair-dark: rgba(246, 243, 236, 0.16);
 
-    /* Goudy Bookletter 1911 ships regular only: no bold, no italic.
-       Every serif element pins font-weight 400 so browsers never
-       synthesize a smeared faux bold. */
-    --serif: "Goudy Bookletter 1911", Georgia, "Times New Roman", serif;
+    /* Merriweather has real weights, so headings use Light 300 at display
+       size; its large x-height and sturdy strokes read heavy at 400. */
+    --serif: "Merriweather", Georgia, "Times New Roman", serif;
     --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
     --edge: clamp(1.5rem, 5vw, 4.5rem);
@@ -84,19 +83,18 @@ main { flex: 1; }
 }
 
 /* ---------- Type ---------- */
-/* Goudy Bookletter 1911: an old-style Garalde. It is fitted wide and
-   open, so it takes near-zero tracking and roomier leading than a
-   modern face would. */
+/* Merriweather is wide with a large x-height, so it needs tighter
+   tracking and smaller sizes than a narrower face to sit the same. */
 .display {
     font-family: var(--serif);
-    font-weight: 400;
-    line-height: 1.14;
-    letter-spacing: -0.003em;
+    font-weight: 300;
+    line-height: 1.18;
+    letter-spacing: -0.021em;
     text-wrap: balance;
 }
-.d-1 { font-size: clamp(3.1rem, 7.4vw, 6.4rem); }
-.d-2 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); }
-.d-3 { font-size: clamp(2rem, 3.6vw, 3.1rem); }
+.d-1 { font-size: clamp(2.7rem, 6.1vw, 5.3rem); }
+.d-2 { font-size: clamp(2.2rem, 4.6vw, 3.7rem); }
+.d-3 { font-size: clamp(1.8rem, 3.2vw, 2.7rem); }
 
 /* Sentence case, natural tracking. No small-caps label treatment. */
 .eyebrow {
@@ -104,8 +102,12 @@ main { flex: 1; }
     font-weight: 400;
     color: var(--ink-2);
 }
+/* .hero is listed explicitly: it is a dark surface but not a .band-dark,
+   so without this its text falls back to the dark-on-cream ink and turns
+   into unreadable grey. */
 .band-dark .eyebrow,
-.band-near .eyebrow { color: var(--on-dark-3); }
+.band-near .eyebrow,
+.hero .eyebrow { color: var(--on-dark-2); }
 
 .body-lg {
     font-size: clamp(1.02rem, 1.25vw, 1.14rem);
@@ -114,7 +116,8 @@ main { flex: 1; }
     max-width: 46ch;
 }
 .band-dark .body-lg,
-.band-near .body-lg { color: var(--on-dark-2); }
+.band-near .body-lg,
+.hero .body-lg { color: var(--on-dark-2); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -170,8 +173,8 @@ main { flex: 1; }
     gap: 0.55rem;
     font-family: var(--serif);
     font-weight: 400;
-    font-size: 1.5rem;
-    letter-spacing: 0;
+    font-size: 1.25rem;
+    letter-spacing: -0.015em;
 }
 .word img { width: 25px; height: 25px; }
 
@@ -207,18 +210,34 @@ main { flex: 1; }
 .tog[aria-expanded="true"] i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* ---------- Hero: cinematic, edge to edge ---------- */
+/* The hero is deliberately NOT the .inner element. An absolutely
+   positioned child of a grid container is confined to its grid area, so
+   when the hero was itself the grid the press strip got trapped inside a
+   single column instead of spanning the viewport. The grid now lives in a
+   wrapper, leaving the hero free to host full-bleed children. */
 .hero {
     position: relative;
     min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--nav);
+    overflow: clip;
+    background: var(--black);
+    color: var(--on-dark);
+}
+/* Takes the remaining height and centres within it, which leaves the
+   press strip as the last flow child sitting on the hero's bottom edge.
+   Absolute positioning was fragile here and left the strip stranded
+   mid-band with dead space under it. */
+.hero-grid {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    width: 100%;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
     gap: 2rem;
-    padding-top: var(--nav);
-    padding-bottom: 8.5rem;
-    overflow: clip;
-    background: var(--black);
-    color: var(--on-dark);
 }
 .hero-art {
     position: absolute;
@@ -235,7 +254,11 @@ main { flex: 1; }
         linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,0) 26%, rgba(10,10,10,.72) 100%);
 }
 .hero-copy { position: relative; z-index: 2; }
-.hero-copy .body-lg { margin-top: 1.7rem; }
+/* Slightly held back from the headline without dropping to unreadable. */
+.hero-copy .body-lg {
+    margin-top: 1.7rem;
+    color: rgba(246, 243, 236, 0.76);
+}
 .hero-copy .btn { margin-top: 2.6rem; }
 
 /* 3D mark, right side */
@@ -260,43 +283,16 @@ main { flex: 1; }
    shadows fall down and to the LEFT, and they soften and fade as they
    travel away from the object. */
 
-/* Key bloom: the light source spilling into the scene, upper right. */
-.mark::before {
-    content: "";
-    position: absolute;
-    top: -10%; right: -12%;
-    width: 78%; aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%,
-        rgba(255, 216, 186, .20) 0%,
-        rgba(255, 186, 150, .07) 45%,
-        transparent 70%);
-    filter: blur(42px);
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Shading on the model itself.
-   drop-shadow() traces the rendered silhouette, so offsetting toward the
-   key light with a warm colour rims the lit edges, and offsetting away
-   with black darkens the edges turned from it. That shades the object,
-   not the background behind it. Order matters: the rim passes run first
-   so the cast-shadow passes fall over them, not under. */
+/* Shading on the model itself. drop-shadow() traces the rendered
+   silhouette, so short offsets away from the key light darken the edges
+   turned from it. Kept tight on purpose: no glow, and no long throw that
+   would read as a shadow sitting behind the object. */
 .mark spline-viewer,
 .mark-still {
     filter:
-        /* key-side rim: tight warm catch on the upper-right edges */
-        drop-shadow(2px -2px 0 rgba(255, 219, 179, .5))
-        drop-shadow(4px -4px 5px rgba(255, 198, 150, .3))
-        /* fill bounce: faint cool light returning from the lower left */
-        drop-shadow(-3px 2px 4px rgba(150, 140, 220, .18))
-        /* shaded edges, then the cast shadow travelling down-left */
-        drop-shadow(-3px 4px 3px rgba(0, 0, 0, .55))
-        drop-shadow(-9px 13px 11px rgba(0, 0, 0, .36))
-        drop-shadow(-22px 30px 26px rgba(0, 0, 0, .24))
-        drop-shadow(-44px 58px 54px rgba(0, 0, 0, .16))
-        /* deepen the form so the render's own volume reads stronger */
-        contrast(1.06) saturate(1.04);
+        drop-shadow(-1px 1px 1px rgba(0, 0, 0, .6))
+        drop-shadow(-2px 3px 3px rgba(0, 0, 0, .42))
+        drop-shadow(-4px 5px 6px rgba(0, 0, 0, .26));
 }
 
 .mark spline-viewer {
@@ -313,48 +309,13 @@ main { flex: 1; }
 }
 .mark.live .mark-still { opacity: 0; }
 
-/* Cast shadow on the ground: pushed left of the object and sheared, the
-   way a raking light throws a shadow rather than dropping it straight down. */
-.mark-floor {
-    position: absolute;
-    left: 43%; bottom: 2%;
-    z-index: 1;
-    width: 52%; height: 7%;
-    translate: -50% 0;
-    transform: skewX(-16deg);
-    border-radius: 50%;
-    background: radial-gradient(ellipse at center,
-        rgba(0, 0, 0, .58) 0%, rgba(0, 0, 0, .24) 45%, transparent 72%);
-    filter: blur(19px);
-    animation: settle 8s ease-in-out infinite;
-}
-
-/* Ambient occlusion: the tight, dark, barely-blurred core right at the
-   contact point. This is what actually sells the object as resting in
-   the scene rather than floating over it. */
-.mark-ao {
-    position: absolute;
-    left: 48%; bottom: 4.5%;
-    z-index: 1;
-    width: 26%; height: 3.2%;
-    translate: -50% 0;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at center,
-        rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .2) 55%, transparent 75%);
-    filter: blur(7px);
-    animation: occlude 8s ease-in-out infinite;
-}
-
-@keyframes hover  { 0%,100% { translate: 0 0; }         50% { translate: 0 -13px; } }
-/* Shadows shrink and lighten as the object rises: distance softens them. */
-@keyframes settle { 0%,100% { scale: 1 1; opacity: .9; } 50% { scale: .86 .88; opacity: .5; } }
-@keyframes occlude{ 0%,100% { scale: 1 1; opacity: .95; } 50% { scale: .8 .85; opacity: .45; } }
+@keyframes hover  { 0%,100% { translate: 0 0; }         50% { translate: 0 -13px; } } 50% { scale: .86 .88; opacity: .5; } } 50% { scale: .8 .85; opacity: .45; } }
 
 /* Press row pinned to the bottom of the hero, full width */
 .press {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
+    position: relative;
     z-index: 3;
+    width: 100%;
     border-top: 1px solid var(--hair-dark);
     background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,.55) 40%);
 }
@@ -367,19 +328,29 @@ main { flex: 1; }
     gap: 1.15rem;
     padding-block: 1.9rem;
 }
+/* The strip sits on the dark hero but is not inside a .band-dark, so the
+   label needs its own light colour or it renders dark-on-dark. */
+.press .eyebrow {
+    color: var(--on-dark);
+    opacity: .82;
+    font-size: 0.95rem;
+    text-align: center;
+}
 .press ul {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: clamp(1.75rem, 5vw, 4rem);
+    /* Sized so all five sit on one row at every width rather than
+       orphaning the last logo onto a second line. */
+    gap: clamp(1.75rem, 4vw, 4rem);
     list-style: none;
 }
 .press img {
-    height: clamp(30px, 3.6vw, 46px);
+    height: clamp(34px, 4.2vw, 56px);
     width: auto;
     object-fit: contain;
-    opacity: .78;
+    opacity: .85;
     transition: opacity .25s ease;
 }
 .press a:hover img, .press a:focus-visible img { opacity: 1; }
@@ -394,17 +365,19 @@ main { flex: 1; }
 .rule-top { border-top: 1px solid var(--hair); }
 .band-dark .rule-top, .band-near .rule-top { border-top-color: var(--hair-dark); }
 
-/* Statement paired with its supporting paragraph, so the band carries
-   real content instead of one short line over a large void. */
+/* Centred block: the statement and its paragraph share a centre axis
+   rather than hugging the left edge. */
 .lede-pair {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: clamp(1.75rem, 5vw, 4rem);
-    align-items: end;
-    margin-top: 1.2rem;
+    text-align: center;
+    margin-inline: auto;
+    max-width: 46rem;
 }
-.statement { max-width: 22ch; }
-.lede-pair .body-lg { padding-bottom: 0.4rem; }
+.statement {
+    max-width: 20ch;
+    margin-inline: auto;
+    margin-bottom: 1.5rem;
+}
+.lede-pair .body-lg { max-width: 56ch; margin-inline: auto; }
 
 .points { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
@@ -423,9 +396,9 @@ main { flex: 1; }
 .point h3 {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(1.5rem, 2.4vw, 2.05rem);
-    letter-spacing: 0;
-    line-height: 1.22;
+    font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+    letter-spacing: -0.016em;
+    line-height: 1.3;
 }
 .point p { color: var(--ink-2); max-width: 52ch; }
 .band-dark .point p { color: var(--on-dark-2); }
@@ -499,9 +472,9 @@ main { flex: 1; }
 .who h2 {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-    letter-spacing: 0;
-    line-height: 1.22;
+    font-size: clamp(1.25rem, 1.95vw, 1.6rem);
+    letter-spacing: -0.016em;
+    line-height: 1.3;
 }
 .who .role {
     margin-top: 0.45rem;
@@ -602,28 +575,18 @@ html.js .up.seen { opacity: 1; translate: 0 0; }
    Responsive
    =========================================================== */
 @media (max-width: 1000px) {
-    .hero {
-        grid-template-columns: 1fr;
-        align-content: center;
-        gap: 0;
-        padding-bottom: 10.5rem;
-        text-align: left;
-    }
-    .hero-art::after {
-        background:
-            linear-gradient(180deg, rgba(10,10,10,.72) 0%, rgba(10,10,10,.45) 40%, rgba(10,10,10,.85) 100%);
-    }
-    .mark { width: min(62vw, 300px); margin-top: 2.5rem; }
+    /* The hero deliberately keeps its two columns down to 760px. Stacking
+       it here while it was still locked to 100svh spread the copy and the
+       mark to opposite ends of a very tall band with a void between. */
+    .mark { width: min(34vw, 300px); }
 
-    .point, .member, .lede-pair {
+    .point, .member {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    .lede-pair { align-items: start; }
     .statement { max-width: none; }
     .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
-    .press ul { gap: clamp(1.25rem, 5vw, 2.5rem); }
 }
 
 @media (max-width: 760px) {
@@ -651,8 +614,38 @@ html.js .up.seen { opacity: 1; translate: 0 0; }
     .links .btn-line-light { border-color: var(--hair); color: var(--ink); }
 }
 
+@media (max-width: 760px) {
+    /* The hero stops being locked to the full viewport: forcing 100svh
+       squeezed the mark and crushed the press strip onto the bottom edge.
+       It now sizes to its content with real breathing room. */
+    .hero {
+        min-height: 0;
+        padding-bottom: 0;
+        text-align: left;
+    }
+    .hero-grid {
+        flex: none;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-block: clamp(2rem, 7vh, 3.5rem) clamp(1.5rem, 4vh, 2.5rem);
+    }
+    .hero-art::after {
+        background:
+            linear-gradient(180deg, rgba(10,10,10,.74) 0%, rgba(10,10,10,.46) 42%, rgba(10,10,10,.86) 100%);
+    }
+    .mark {
+        width: min(64vw, 270px);
+        margin-top: 2.25rem;
+    }
+    .press-in {
+        padding-block: 1.6rem 1.9rem;
+        gap: 0.95rem;
+    }
+    .press ul { gap: clamp(1.1rem, 5vw, 2rem); }
+    .press img { height: clamp(26px, 6.5vw, 34px); }
+}
+
 @media (max-width: 560px) {
     .foot-grid { grid-template-columns: 1fr; gap: 1.8rem; }
     .who { flex-direction: column; align-items: flex-start; }
-    .hero { padding-bottom: 12rem; }
 }
