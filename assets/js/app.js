@@ -2,44 +2,36 @@
 (() => {
     "use strict";
 
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    /* Nav shadow on scroll */
-    const nav = document.querySelector(".nav");
-    if (nav) {
-        const pin = () => nav.classList.toggle("pinned", window.scrollY > 4);
-        pin();
-        window.addEventListener("scroll", pin, { passive: true });
-    }
+    const stillPreferred = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     /* Mobile menu */
-    const burger = document.querySelector(".burger");
-    const menu = document.getElementById("menu");
-    if (burger && menu) {
+    const tog = document.querySelector(".tog");
+    const links = document.getElementById("links");
+    if (tog && links) {
         const shut = () => {
-            menu.classList.remove("show");
-            burger.setAttribute("aria-expanded", "false");
+            links.classList.remove("open");
+            tog.setAttribute("aria-expanded", "false");
         };
-        burger.addEventListener("click", () => {
-            const open = menu.classList.toggle("show");
-            burger.setAttribute("aria-expanded", String(open));
+        tog.addEventListener("click", () => {
+            const open = links.classList.toggle("open");
+            tog.setAttribute("aria-expanded", String(open));
         });
         document.addEventListener("click", (e) => {
-            if (menu.classList.contains("show") &&
-                !menu.contains(e.target) && !burger.contains(e.target)) shut();
+            if (links.classList.contains("open") &&
+                !links.contains(e.target) && !tog.contains(e.target)) shut();
         });
         document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && menu.classList.contains("show")) {
+            if (e.key === "Escape" && links.classList.contains("open")) {
                 shut();
-                burger.focus();
+                tog.focus();
             }
         });
     }
 
-    /* Fade-up on entry */
+    /* Enter-on-scroll */
     const ups = document.querySelectorAll(".up");
     if (ups.length) {
-        if (still || !("IntersectionObserver" in window)) {
+        if (stillPreferred || !("IntersectionObserver" in window)) {
             ups.forEach((el) => el.classList.add("seen"));
         } else {
             const io = new IntersectionObserver((rows) => {
@@ -49,20 +41,20 @@
                         io.unobserve(row.target);
                     }
                 });
-            }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+            }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
             ups.forEach((el) => io.observe(el));
         }
     }
 
-    /* 3D mark: reveal once the viewer paints, tilt with the pointer */
-    const stage = document.getElementById("stage");
-    if (stage) {
-        const viewer = stage.querySelector("spline-viewer");
+    /* 3D mark */
+    const mark = document.getElementById("mark");
+    if (mark) {
+        const viewer = mark.querySelector("spline-viewer");
         if (viewer) {
-            const live = () => stage.classList.add("live");
+            const live = () => mark.classList.add("live");
             viewer.addEventListener("load-complete", live);
-            // The component does not fire that event in every build, so also
-            // watch for a painted canvas and give up quietly if it never lands.
+            // Not every build fires that event, so also watch for a painted
+            // canvas and fall back to the still logo if it never arrives.
             let n = 0;
             const poll = setInterval(() => {
                 const cv = viewer.shadowRoot && viewer.shadowRoot.querySelector("canvas");
@@ -70,48 +62,52 @@
                     live();
                     clearInterval(poll);
                 } else if (++n > 100) {
-                    clearInterval(poll); // still image stays visible
+                    clearInterval(poll);
                 }
             }, 150);
         }
 
-        if (!still && window.matchMedia("(min-width: 941px)").matches) {
-            const tilt = stage.querySelector(".stage-tilt");
+        if (!stillPreferred && window.matchMedia("(min-width: 1001px)").matches) {
+            const tilt = mark.querySelector(".mark-tilt");
             if (tilt) {
                 window.addEventListener("pointermove", (e) => {
                     const x = e.clientX / window.innerWidth - 0.5;
                     const y = e.clientY / window.innerHeight - 0.5;
-                    tilt.style.setProperty("--rx", `${(x * 8).toFixed(2)}deg`);
-                    tilt.style.setProperty("--ry", `${(-y * 8).toFixed(2)}deg`);
+                    // Kept small: the Spline scene has its own camera response,
+                    // and a larger range compounds with it into a skewed pose.
+                    tilt.style.setProperty("--rx", `${(x * 4).toFixed(2)}deg`);
+                    tilt.style.setProperty("--ry", `${(-y * 4).toFixed(2)}deg`);
                 }, { passive: true });
             }
         }
     }
 
-    /* Screenshot viewer */
-    const viewer = document.getElementById("viewer");
-    if (viewer) {
-        const img = viewer.querySelector(".shot img");
-        const shots = JSON.parse(viewer.dataset.shots);
-        const pips = Array.from(viewer.querySelectorAll(".pip"));
-        const OUT = 260;
-        const IN = 280;
+    /* Device screenshots */
+    const device = document.getElementById("device");
+    if (device) {
+        const img = device.querySelector(".device-shot img");
+        const shots = JSON.parse(device.dataset.shots);
+        const count = device.querySelector(".count");
+        const OUT = 250;
+        const IN = 270;
         let at = 0;
         let moving = false;
 
         shots.forEach((src) => { new Image().src = src; });
 
-        const mark = () => pips.forEach((p, i) =>
-            p.setAttribute("aria-current", String(i === at)));
+        const pad = (n) => String(n).padStart(2, "0");
+        const label = () => {
+            if (count) count.textContent = `${pad(at + 1)} / ${pad(shots.length)}`;
+        };
 
         const to = (next, dir) => {
             const target = (next + shots.length) % shots.length;
             if (moving || target === at) return;
             moving = true;
             at = target;
-            mark();
+            label();
 
-            if (still) {
+            if (stillPreferred) {
                 img.src = shots[at];
                 moving = false;
                 return;
@@ -119,12 +115,12 @@
 
             img.style.transition = `transform ${OUT}ms ease, opacity ${OUT}ms ease`;
             img.style.opacity = "0";
-            img.style.transform = `translateX(${dir * -22}px)`;
+            img.style.transform = `translateX(${dir * -20}px)`;
 
             setTimeout(() => {
                 img.src = shots[at];
                 img.style.transition = "none";
-                img.style.transform = `translateX(${dir * 22}px)`;
+                img.style.transform = `translateX(${dir * 20}px)`;
                 void img.offsetWidth; // flush so the jump across is not animated
                 img.style.transition = `transform ${IN}ms ease, opacity ${IN}ms ease`;
                 img.style.opacity = "1";
@@ -135,11 +131,9 @@
             setTimeout(() => { moving = false; }, OUT + IN);
         };
 
-        viewer.querySelector(".prev").addEventListener("click", () => to(at - 1, -1));
-        viewer.querySelector(".next").addEventListener("click", () => to(at + 1, 1));
-        pips.forEach((p, i) => p.addEventListener("click", () => to(i, i > at ? 1 : -1)));
-
-        viewer.addEventListener("keydown", (e) => {
+        device.querySelector(".prev").addEventListener("click", () => to(at - 1, -1));
+        device.querySelector(".next").addEventListener("click", () => to(at + 1, 1));
+        device.addEventListener("keydown", (e) => {
             if (e.key === "ArrowLeft") to(at - 1, -1);
             if (e.key === "ArrowRight") to(at + 1, 1);
         });
@@ -153,7 +147,7 @@
             if (Math.abs(dx) > 40) to(at + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
         }, { passive: true });
 
-        mark();
+        label();
     }
 
     /* Contact form composes a message in the visitor's mail client */
