@@ -1,113 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About — OCRadar</title>
-    <meta name="description" content="Learn how OCRadar harnesses artificial intelligence and machine learning to make early oral cancer detection accessible to everyone.">
-    <link rel="icon" href="assets/img/OCRadarLogo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script>document.documentElement.classList.add("js");</script>
-    <script src="assets/js/main.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — OCRadar</title>
+<meta name="description" content="Learn how OCRadar harnesses artificial intelligence and machine learning to make early oral cancer detection accessible to everyone.">
+<link rel="icon" href="assets/img/OCRadarLogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<script>document.documentElement.classList.add("js");</script>
+<script src="assets/js/app.js" defer></script>
 </head>
 <body>
-    <header class="site-header solid">
-        <div class="container header-inner">
-            <a class="brand" href="index.html">
-                <img src="assets/img/OCRadarLogo.png" alt="">
-                <span>OCRadar</span>
-            </a>
-            <nav class="site-nav" id="siteNav" aria-label="Main">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html" aria-current="page">About</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a class="nav-cta" href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <button class="nav-toggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </header>
 
-    <main>
-        <section class="about-grid container">
-            <div class="about-copy">
-                <span class="label reveal" style="display:block; margin-bottom:1.6rem">Overview</span>
-                <h1 class="d2 reveal" style="--d: 0.08s">Designed to revolutionize the detection of oral cancer.</h1>
-                <p class="lede reveal" style="--d: 0.16s">
-                    Harnessing the power of artificial intelligence and machine learning, OCRadar offers a
-                    sophisticated tool for both medical professionals and the general public, facilitating
-                    early detection and improving the chances of successful treatment.
-                </p>
-                <div class="hero-cta reveal" style="--d: 0.24s">
-                    <a class="btn btn-primary" href="contact.html">Get in touch</a>
-                    <a class="btn btn-ghost" href="team.html">Meet the team</a>
-                </div>
-            </div>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">
+      <img src="assets/img/OCRadarLogo.png" alt="">
+      <span>OCRadar</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+      <a class="btn btn-fill" href="contact.html">Contact us</a>
+    </nav>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <i></i><i></i><i></i>
+    </button>
+  </div>
+</header>
 
-            <div class="carousel reveal" id="mockCarousel" tabindex="0" aria-label="App screenshots"
-                 data-images='["assets/img/mock1.png","assets/img/mock2.png","assets/img/mock3.png"]'
-                 style="--d: 0.2s">
-                <div class="car-row">
-                    <button class="car-btn prev" aria-label="Previous screenshot">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                    </button>
-                    <div class="car-frame">
-                        <img class="car-img" src="assets/img/mock1.png" alt="OCRadar app screenshot" width="1339" height="2716">
-                    </div>
-                    <button class="car-btn next" aria-label="Next screenshot">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-                    </button>
-                </div>
-                <div class="car-dots">
-                    <button class="car-dot" aria-label="Screenshot 1" aria-current="true"></button>
-                    <button class="car-dot" aria-label="Screenshot 2" aria-current="false"></button>
-                    <button class="car-dot" aria-label="Screenshot 3" aria-current="false"></button>
-                </div>
-            </div>
-        </section>
-    </main>
+<main>
+  <section class="wrap about">
+    <div>
+      <span class="kicker up">Overview</span>
+      <h1 class="t-page up" style="--d:.05s">Designed to revolutionize the detection of oral cancer.</h1>
+      <p class="sub up" style="--d:.1s">
+        Harnessing the power of artificial intelligence and machine learning, OCRadar offers a
+        sophisticated tool for both medical professionals and the general public, facilitating
+        early detection and improving the chances of successful treatment.
+      </p>
+      <div class="actions up" style="--d:.15s">
+        <a class="btn btn-fill" href="contact.html">
+          Get in touch
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn btn-out" href="team.html">Meet the team</a>
+      </div>
+    </div>
 
-    <footer class="site-footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <a class="brand" href="index.html">
-                    <img src="assets/img/OCRadarLogo.png" alt="">
-                    <span>OCRadar</span>
-                </a>
-                <p>AI-powered early detection of oral cancer.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Pages</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="termsOfUse.html">Terms of Use</a></li>
-                    <li><a href="privacyPolicy.html">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
-                </ul>
-            </div>
+    <div class="panel viewer up" id="viewer" tabindex="0" aria-label="App screenshots"
+         data-shots='["assets/img/mock1.png","assets/img/mock2.png","assets/img/mock3.png"]'>
+      <div class="viewer-bg" aria-hidden="true"></div>
+      <div class="viewer-in">
+        <div class="shot">
+          <img src="assets/img/mock1.png" alt="OCRadar app screenshot" width="1339" height="2716">
         </div>
-        <div class="container footer-bottom">
-            <span>© 2026 OCRadar. All rights reserved.</span>
+        <div class="viewer-ctl">
+          <button class="arrow prev" aria-label="Previous screenshot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <span class="pips">
+            <button class="pip" aria-label="Screenshot 1" aria-current="true"></button>
+            <button class="pip" aria-label="Screenshot 2" aria-current="false"></button>
+            <button class="pip" aria-label="Screenshot 3" aria-current="false"></button>
+          </span>
+          <button class="arrow next" aria-label="Next screenshot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-panel">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="logo" href="index.html">
+            <img src="assets/img/OCRadarLogo.png" alt="">
+            <span>OCRadar</span>
+          </a>
+          <p>AI-powered early detection of oral cancer.</p>
+        </div>
+        <div class="foot-col">
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="termsOfUse.html">Terms of Use</a></li>
+            <li><a href="privacyPolicy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-base">
+        <span>© 2026 OCRadar</span>
+        <span>All rights reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
