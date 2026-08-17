@@ -20,7 +20,10 @@
     --hair:      #ddd7ca;
     --hair-dark: rgba(246, 243, 236, 0.16);
 
-    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    /* Goudy Bookletter 1911 ships regular only: no bold, no italic.
+       Every serif element pins font-weight 400 so browsers never
+       synthesize a smeared faux bold. */
+    --serif: "Goudy Bookletter 1911", Georgia, "Times New Roman", serif;
     --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
     --edge: clamp(1.5rem, 5vw, 4.5rem);
@@ -81,16 +84,14 @@ main { flex: 1; }
 }
 
 /* ---------- Type ---------- */
-/* Fraunces: soft terminals and low stroke contrast at display optical
-   sizes, so large headlines stay warm and easy to read rather than
-   thinning out the way a high-contrast face does. */
+/* Goudy Bookletter 1911: an old-style Garalde. It is fitted wide and
+   open, so it takes near-zero tracking and roomier leading than a
+   modern face would. */
 .display {
     font-family: var(--serif);
     font-weight: 400;
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 55, "WONK" 0;
-    line-height: 1.06;
-    letter-spacing: -0.014em;
+    line-height: 1.14;
+    letter-spacing: -0.003em;
     text-wrap: balance;
 }
 .d-1 { font-size: clamp(3.1rem, 7.4vw, 6.4rem); }
@@ -168,10 +169,9 @@ main { flex: 1; }
     align-items: center;
     gap: 0.55rem;
     font-family: var(--serif);
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 55, "WONK" 0;
-    font-size: 1.45rem;
-    letter-spacing: -0.005em;
+    font-weight: 400;
+    font-size: 1.5rem;
+    letter-spacing: 0;
 }
 .word img { width: 25px; height: 25px; }
 
@@ -276,16 +276,27 @@ main { flex: 1; }
     pointer-events: none;
 }
 
-/* Stacked drop-shadows trace the object's real silhouette, so its edges
-   are shadowed on the side facing away from the key. Offsets grow while
-   opacity drops: soft-area-light falloff, not one flat blob. */
+/* Shading on the model itself.
+   drop-shadow() traces the rendered silhouette, so offsetting toward the
+   key light with a warm colour rims the lit edges, and offsetting away
+   with black darkens the edges turned from it. That shades the object,
+   not the background behind it. Order matters: the rim passes run first
+   so the cast-shadow passes fall over them, not under. */
 .mark spline-viewer,
 .mark-still {
     filter:
-        drop-shadow(-3px 4px 3px rgba(0, 0, 0, .5))
-        drop-shadow(-9px 13px 11px rgba(0, 0, 0, .34))
+        /* key-side rim: tight warm catch on the upper-right edges */
+        drop-shadow(2px -2px 0 rgba(255, 219, 179, .5))
+        drop-shadow(4px -4px 5px rgba(255, 198, 150, .3))
+        /* fill bounce: faint cool light returning from the lower left */
+        drop-shadow(-3px 2px 4px rgba(150, 140, 220, .18))
+        /* shaded edges, then the cast shadow travelling down-left */
+        drop-shadow(-3px 4px 3px rgba(0, 0, 0, .55))
+        drop-shadow(-9px 13px 11px rgba(0, 0, 0, .36))
         drop-shadow(-22px 30px 26px rgba(0, 0, 0, .24))
-        drop-shadow(-44px 58px 54px rgba(0, 0, 0, .16));
+        drop-shadow(-44px 58px 54px rgba(0, 0, 0, .16))
+        /* deepen the form so the render's own volume reads stronger */
+        contrast(1.06) saturate(1.04);
 }
 
 .mark spline-viewer {
@@ -374,23 +385,28 @@ main { flex: 1; }
 .press a:hover img, .press a:focus-visible img { opacity: 1; }
 
 /* ---------- Sections ---------- */
-.sec { padding-block: clamp(4.5rem, 11vw, 9rem); }
+.sec { padding-block: clamp(3.25rem, 6.5vw, 5.5rem); }
 .sec-sm { padding-block: clamp(3rem, 7vw, 5.5rem); }
 
-/* Label sits directly above its content. A wide left rail stranded these
-   short labels in empty space and made them read as tacked on. */
-.split {
-    display: block;
-}
-.split > .eyebrow {
-    display: block;
-    margin-bottom: 1.1rem;
-}
+/* Labels sit directly above their content. A wide left rail stranded
+   these short labels in empty space and made them read as tacked on. */
+.eyebrow { display: block; }
 .rule-top { border-top: 1px solid var(--hair); }
 .band-dark .rule-top, .band-near .rule-top { border-top-color: var(--hair-dark); }
 
-/* Statement */
-.statement { max-width: 24ch; }
+/* Statement paired with its supporting paragraph, so the band carries
+   real content instead of one short line over a large void. */
+.lede-pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(1.75rem, 5vw, 4rem);
+    align-items: end;
+    margin-top: 1.2rem;
+}
+.statement { max-width: 22ch; }
+.lede-pair .body-lg { padding-bottom: 0.4rem; }
+
+.points { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
 /* Point rows: hairlines and space, not boxes */
 .points { display: grid; }
@@ -407,11 +423,9 @@ main { flex: 1; }
 .point h3 {
     font-family: var(--serif);
     font-weight: 400;
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 55, "WONK" 0;
     font-size: clamp(1.5rem, 2.4vw, 2.05rem);
-    letter-spacing: -0.01em;
-    line-height: 1.15;
+    letter-spacing: 0;
+    line-height: 1.22;
 }
 .point p { color: var(--ink-2); max-width: 52ch; }
 .band-dark .point p { color: var(--on-dark-2); }
@@ -485,11 +499,9 @@ main { flex: 1; }
 .who h2 {
     font-family: var(--serif);
     font-weight: 400;
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 55, "WONK" 0;
     font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-    letter-spacing: -0.01em;
-    line-height: 1.15;
+    letter-spacing: 0;
+    line-height: 1.22;
 }
 .who .role {
     margin-top: 0.45rem;
@@ -603,10 +615,12 @@ html.js .up.seen { opacity: 1; translate: 0 0; }
     }
     .mark { width: min(62vw, 300px); margin-top: 2.5rem; }
 
-    .split, .point, .member {
+    .point, .member, .lede-pair {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
+    .lede-pair { align-items: start; }
+    .statement { max-width: none; }
     .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
     .press ul { gap: clamp(1.25rem, 5vw, 2.5rem); }
