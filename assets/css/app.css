@@ -351,9 +351,16 @@ main { flex: 1; }
     width: auto;
     object-fit: contain;
     opacity: .85;
-    transition: opacity .25s ease;
+    transition: transform .28s cubic-bezier(.22,1,.36,1), opacity .28s cubic-bezier(.22,1,.36,1);
 }
-.press a:hover img, .press a:focus-visible img { opacity: 1; }
+/* These logos are near-white on near-black, so lifting opacity to full made
+   them bloom and read as washing out rather than as a response. The hover is
+   a restrained lift of the single logo instead; transform leaves the row's
+   layout untouched, so the other four stay put. */
+.press a:hover img, .press a:focus-visible img {
+    transform: scale(1.08);
+    opacity: .95;
+}
 
 /* ---------- Sections ---------- */
 .sec { padding-block: clamp(3.25rem, 6.5vw, 5.5rem); }
@@ -569,6 +576,7 @@ html.js .up.seen { opacity: 1; translate: 0 0; }
         transition-duration: .01ms !important;
     }
     html.js .up { opacity: 1; translate: 0 0; }
+    .press a:hover img, .press a:focus-visible img { transform: none; }
 }
 
 /* ===========================================================
