@@ -2,72 +2,77 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>About — OCRadar</title>
 <meta name="description" content="Learn how OCRadar harnesses artificial intelligence and machine learning to make early oral cancer detection accessible to everyone.">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FBF7F3">
 <link rel="icon" href="/assets/img/OCRadarLogo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/app.css">
 <script>document.documentElement.classList.add("js");</script>
 <script src="/assets/js/app.js" defer></script>
 </head>
 <body>
 
-<header class="nav solid">
-  <div class="inner nav-in">
-    <a class="word" href="/">
-      <img src="/assets/img/OCRadarLogo.png" alt="">
-      <span>OCRadar</span>
-    </a>
-    <nav class="links" id="links" aria-label="Main">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/" aria-current="page">About</a></li>
-        <li><a href="/team/">Team</a></li>
-      </ul>
-      <a class="btn btn-line-dark" href="/contact/">Contact us</a>
-    </nav>
-    <button class="tog" aria-expanded="false" aria-controls="links" aria-label="Menu">
-      <i></i><i></i><i></i>
-    </button>
+<header class="nav">
+  <div class="inner">
+    <div class="nav-in">
+      <a class="word" href="/">
+        <img src="/assets/img/OCRadarLogo.png" alt="">
+        <span>OCRadar</span>
+      </a>
+      <nav class="links" id="links" aria-label="Main">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/" aria-current="page">About</a></li>
+          <li><a href="/team/">Team</a></li>
+        </ul>
+        <a class="btn btn-sm" href="/contact/">Contact us</a>
+      </nav>
+      <button class="tog" aria-expanded="false" aria-controls="links" aria-label="Menu">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
   </div>
 </header>
 
 <main>
-  <section class="band band-cream">
-    <div class="inner about">
+  <section class="inner">
+    <div class="field field-lilac about">
       <div>
-        <h1 class="display d-2 up" style="--d:.05s; margin-top:1.3rem">
-          Designed to revolutionize the detection of oral cancer.
-        </h1>
-        <p class="body-lg up" style="--d:.1s">
+        <h1 class="h-page up">Designed to revolutionize the detection of oral cancer.</h1>
+        <p class="lede up" style="--d:.08s">
           Harnessing the power of artificial intelligence and machine learning, OCRadar offers a
           sophisticated tool for both medical professionals and the general public, facilitating
           early detection and improving the chances of successful treatment.
         </p>
         <div class="actions up" style="--d:.16s">
-          <a class="btn btn-dark" href="/contact/">
+          <a class="btn" href="/contact/">
             Get in touch
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
           </a>
-          <a class="btn btn-line-dark" href="/team/">Meet the team</a>
+          <a class="link" href="/team/">
+            Meet the team
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+          </a>
         </div>
       </div>
 
-      <div class="device up" id="device" tabindex="0" aria-label="App screenshots"
-           data-shots='["/assets/img/mock1.png","/assets/img/mock2.png","/assets/img/mock3.png"]'
+      <div class="device up" id="device" tabindex="0" role="group" aria-label="App screenshots"
+           data-shots='[{"name":"Summary","src":"/assets/img/app-summary.webp","alt":"Summary screen: the latest comparison as an arc gauge reading 54% visual similarity, marked as a demo result."},{"name":"Comparison","src":"/assets/img/app-comparison.webp","alt":"Comparison screen: 32% visual similarity, with the notice that this is a visual comparison, not a diagnosis."},{"name":"History","src":"/assets/img/app-history.webp","alt":"History screen: past comparisons, each with its closest reference category and how similar it looked."},{"name":"Settings","src":"/assets/img/app-settings.webp","alt":"Settings screen: appearance, scanning and saved-data controls."}]'
            style="--d:.12s">
-        <div class="device-shot">
-          <img src="/assets/img/mock1.png" alt="OCRadar app screenshot" width="1339" height="2716">
+        <div class="phone device-shot">
+          <img src="/assets/img/app-summary.webp" alt="Summary screen: the latest comparison as an arc gauge reading 54% visual similarity, marked as a demo result." width="804" height="1748">
         </div>
         <div class="device-ctl">
-          <button class="step prev" aria-label="Previous screenshot">
+          <button class="round prev" aria-label="Previous screenshot">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
-          <span class="count">01 / 03</span>
-          <button class="step next" aria-label="Next screenshot">
+          <span class="pill" aria-live="polite">
+            <span class="shot-name">Summary</span>
+            <span class="count">1 of 4</span>
+          </span>
+          <button class="round next" aria-label="Next screenshot">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
           </button>
         </div>
@@ -76,42 +81,57 @@
   </section>
 </main>
 
-<footer class="band foot">
+<footer class="foot">
   <div class="inner">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="word" href="/">
-          <img src="/assets/img/OCRadarLogo.png" alt="">
-          <span>OCRadar</span>
+    <div class="field field-rose foot-field">
+      <div class="foot-cta">
+        <div>
+          <h2 class="h-sec">We’re here to help.</h2>
+          <p class="lede">
+            Whether you have questions about our products, want to explore sponsorship
+            opportunities, or are eager to join our team, we’d love to hear from you.
+          </p>
+        </div>
+        <a class="btn" href="/contact/">
+          Contact us
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
         </a>
-        <p>AI-powered early detection of oral cancer.</p>
       </div>
-      <div>
-        <h3>Pages</h3>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/team/">Team</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="word" href="/">
+            <img src="/assets/img/OCRadarLogo.png" alt="">
+            <span>OCRadar</span>
+          </a>
+          <p>AI-powered early detection of oral cancer.</p>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/team/">Team</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/terms/">Terms of Use</a></li>
+            <li><a href="/privacy/">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="/terms/">Terms of Use</a></li>
-          <li><a href="/privacy/">Privacy Policy</a></li>
-        </ul>
+      <div class="foot-base">
+        <p>OCRadar is a screening aid and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
+        <span>© 2026 OCRadar · All rights reserved</span>
       </div>
-      <div>
-        <h3>Contact</h3>
-        <ul>
-          <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="foot-base">
-      <span>© 2026 OCRadar</span>
-      <span>All rights reserved</span>
     </div>
   </div>
 </footer>

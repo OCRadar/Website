@@ -53,32 +53,20 @@
         if (viewer) {
             const live = () => mark.classList.add("live");
             viewer.addEventListener("load-complete", live);
-            // Not every build fires that event, so also watch for a painted
-            // canvas and fall back to the still logo if it never arrives.
+            // Not every build fires that event, so also watch the canvas.
+            // The viewer keeps it hidden until the scene has painted, so
+            // "visible" is the signal; a canvas merely existing is not.
+            // If it never arrives, the still mark stays.
             let n = 0;
             const poll = setInterval(() => {
                 const cv = viewer.shadowRoot && viewer.shadowRoot.querySelector("canvas");
-                if (cv && cv.width > 0) {
+                if (cv && cv.style.visibility === "visible") {
                     live();
                     clearInterval(poll);
-                } else if (++n > 100) {
+                } else if (++n > 200) {
                     clearInterval(poll);
                 }
             }, 150);
-        }
-
-        if (!stillPreferred && window.matchMedia("(min-width: 1001px)").matches) {
-            const tilt = mark.querySelector(".mark-tilt");
-            if (tilt) {
-                window.addEventListener("pointermove", (e) => {
-                    const x = e.clientX / window.innerWidth - 0.5;
-                    const y = e.clientY / window.innerHeight - 0.5;
-                    // Kept small: the Spline scene has its own camera response,
-                    // and a larger range compounds with it into a skewed pose.
-                    tilt.style.setProperty("--rx", `${(x * 4).toFixed(2)}deg`);
-                    tilt.style.setProperty("--ry", `${(-y * 4).toFixed(2)}deg`);
-                }, { passive: true });
-            }
         }
     }
 
@@ -88,16 +76,21 @@
         const img = device.querySelector(".device-shot img");
         const shots = JSON.parse(device.dataset.shots);
         const count = device.querySelector(".count");
+        const name = device.querySelector(".shot-name");
         const OUT = 250;
         const IN = 270;
         let at = 0;
         let moving = false;
 
-        shots.forEach((src) => { new Image().src = src; });
+        shots.forEach((shot) => { new Image().src = shot.src; });
 
-        const pad = (n) => String(n).padStart(2, "0");
+        const show = () => {
+            img.src = shots[at].src;
+            img.alt = shots[at].alt;
+        };
         const label = () => {
-            if (count) count.textContent = `${pad(at + 1)} / ${pad(shots.length)}`;
+            if (name) name.textContent = shots[at].name;
+            if (count) count.textContent = `${at + 1} of ${shots.length}`;
         };
 
         const to = (next, dir) => {
@@ -108,23 +101,23 @@
             label();
 
             if (stillPreferred) {
-                img.src = shots[at];
+                show();
                 moving = false;
                 return;
             }
 
-            img.style.transition = `transform ${OUT}ms ease, opacity ${OUT}ms ease`;
+            img.style.transition = `translate ${OUT}ms ease, opacity ${OUT}ms ease`;
             img.style.opacity = "0";
-            img.style.transform = `translateX(${dir * -20}px)`;
+            img.style.translate = `${dir * -20}px 0`;
 
             setTimeout(() => {
-                img.src = shots[at];
+                show();
                 img.style.transition = "none";
-                img.style.transform = `translateX(${dir * 20}px)`;
+                img.style.translate = `${dir * 20}px 0`;
                 void img.offsetWidth; // flush so the jump across is not animated
-                img.style.transition = `transform ${IN}ms ease, opacity ${IN}ms ease`;
+                img.style.transition = `translate ${IN}ms ease, opacity ${IN}ms ease`;
                 img.style.opacity = "1";
-                img.style.transform = "translateX(0)";
+                img.style.translate = "0 0";
             }, OUT);
 
             // One deterministic release, so a dropped frame cannot wedge the guard

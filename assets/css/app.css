@@ -1,33 +1,65 @@
 /* ===========================================================
    OCRadar
-   Full-bleed bands, serif display, no cards.
+   The app's design, on the web: a cream page, sections on soft
+   colour fields in the mark's own colours, and one thick arc as
+   the signature shape. Light only, by the owner's choice: there
+   is no dark scheme.
+
+   Rules, carried over from the app:
+   1. Colour means section, never result. A field is lilac, peach
+      or rose because of where it is on the page. Nothing here is
+      coloured by a score, and the arc is one colour always.
+   2. What must be read sits on something solid.
+   3. Few shapes: a field, a disc, an arc, a pill, a tile.
+   4. One typeface: the system sans. No serif, no rounded face.
+
+   And one for the web: words sit on the page or on a field, at a
+   size that carries. White is for controls and for real objects
+   (a phone, an input), not a box to put every paragraph in.
    =========================================================== */
 
 :root {
-    --black:   #0a0a0a;
-    --near:    #131313;
-    /* One paper tone only. Sections are separated by rules and space,
-       never by a second shade of off-white. */
-    --cream:   #f4f1ea;
-    --ink:     #14130f;
-    --ink-2:   #45413a;
-    --ink-3:   #6b655b;
+    color-scheme: only light;
 
-    --on-dark:   #f6f3ec;
-    --on-dark-2: rgba(246, 243, 236, 0.88);
-    --on-dark-3: rgba(246, 243, 236, 0.66);
+    /* Ground and surfaces. None of the neutrals is a plain grey; each
+       carries a little of the mark's violet. */
+    --canvas:  #FBF7F3;
+    --surface: #FFFFFF;
+    --raised:  #EFECF4;
+    --divider: #E8E4EE;
 
-    --hair:      #ddd7ca;
-    --hair-dark: rgba(246, 243, 236, 0.16);
+    /* Ink. --ink-3 is the faintest text colour and is not for use on a
+       colour field. */
+    --ink:   #150331;
+    --ink-2: #5B5269;
+    --ink-3: #6C6379;
 
-    /* Merriweather has real weights, so headings use Light 300 at display
-       size; its large x-height and sturdy strokes read heavy at 400. */
-    --serif: "Merriweather", Georgia, "Times New Roman", serif;
-    --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    /* Accent: #401F70 is sampled from the outer ring of the mark. */
+    --accent:       #401F70;
+    --accent-press: #2E1456;
+    --on-accent:    #FFFFFF;
 
-    --edge: clamp(1.5rem, 5vw, 4.5rem);
-    --max:  1440px;
-    --nav:  76px;
+    /* Colour fields, each with a deeper step for its discs and a
+       lighter one for a stage. */
+    --lilac: #E7DDF8;  --lilac-deep: #D9CBF3;  --lilac-lift: #F5F0FD;
+    --peach: #FBDDCD;  --peach-deep: #F6C8B2;  --peach-lift: #FEF1EA;
+    --rose:  #F4D9E1;  --rose-deep:  #EBC3CF;  --rose-lift:  #FBEEF2;
+
+    --shadow-tile: 0 1px 1px rgba(21, 3, 49, .05);
+    --shadow-lift: 0 1px 1px rgba(21, 3, 49, .05), 0 10px 18px rgba(21, 3, 49, .07);
+    --shadow-phone: 0 24px 44px rgba(21, 3, 49, .2);
+
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+
+    --r-field: clamp(28px, 3.4vw, 44px);
+    --r-tile:  26px;
+
+    --edge: clamp(14px, 3vw, 36px);
+    --max:  1280px;
+    --gap:  clamp(12px, 1.6vw, 20px);
+    --pad:  clamp(1.5rem, 5vw, 4.5rem);
+
+    --ease: cubic-bezier(.22, 1, .36, 1);
 }
 
 *,
@@ -45,10 +77,10 @@ html {
 
 body {
     font-family: var(--sans);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.0625rem;
+    line-height: 1.5;
     color: var(--ink);
-    background: var(--cream);
+    background: var(--canvas);
     min-height: 100svh;
     display: flex;
     flex-direction: column;
@@ -58,599 +90,824 @@ body {
 
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+a, button { -webkit-tap-highlight-color: transparent; }
+ul, ol { list-style: none; }
 
 :focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2.5px solid var(--accent);
     outline-offset: 3px;
 }
 
-::selection { background: rgba(20, 19, 15, 0.14); }
+::selection { background: #CDB3F7; color: var(--ink); }
 
-main { flex: 1; }
-
-/* Full-bleed band; content held to a wide measure inside it */
-.band { width: 100%; }
-.band-dark  { background: var(--black); color: var(--on-dark); }
-.band-near  { background: var(--near);  color: var(--on-dark); }
-.band-cream { background: var(--cream); }
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
 
 .inner {
     width: 100%;
-    max-width: var(--max);
+    max-width: calc(var(--max) + 2 * var(--edge));
     margin-inline: auto;
-    padding-inline: var(--edge);
+    /* Clear of a phone's rounded corners and sensor housing when it is
+       turned on its side. */
+    padding-inline: max(var(--edge), env(safe-area-inset-left)) max(var(--edge), env(safe-area-inset-right));
 }
 
 /* ---------- Type ---------- */
-/* Merriweather is wide with a large x-height, so it needs tighter
-   tracking and smaller sizes than a narrower face to sit the same. */
-.display {
-    font-family: var(--serif);
-    font-weight: 300;
-    line-height: 1.18;
-    letter-spacing: -0.021em;
+/* Bold and tight, and large enough to carry a section without a box
+   around it. The tracking tightens as the size grows. */
+.h-hero, .h-page, .h-sec, .h-card {
+    font-weight: 700;
     text-wrap: balance;
 }
-.d-1 { font-size: clamp(2.7rem, 6.1vw, 5.3rem); }
-.d-2 { font-size: clamp(2.2rem, 4.6vw, 3.7rem); }
-.d-3 { font-size: clamp(1.8rem, 3.2vw, 2.7rem); }
-
-/* Sentence case, natural tracking. No small-caps label treatment. */
-.eyebrow {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--ink-2);
+.h-hero {
+    font-size: clamp(2.85rem, .6rem + 6.2vw, 5.75rem);
+    line-height: .97;
+    letter-spacing: -0.047em;
 }
-/* .hero is listed explicitly: it is a dark surface but not a .band-dark,
-   so without this its text falls back to the dark-on-cream ink and turns
-   into unreadable grey. */
-.band-dark .eyebrow,
-.band-near .eyebrow,
-.hero .eyebrow { color: var(--on-dark-2); }
-
-.body-lg {
-    font-size: clamp(1.02rem, 1.25vw, 1.14rem);
-    line-height: 1.62;
-    color: var(--ink-2);
-    max-width: 46ch;
+.h-page {
+    font-size: clamp(2.6rem, 1.1rem + 5.2vw, 5.1rem);
+    line-height: .99;
+    letter-spacing: -0.045em;
 }
-.band-dark .body-lg,
-.band-near .body-lg,
-.hero .body-lg { color: var(--on-dark-2); }
+.h-sec {
+    font-size: clamp(2.15rem, 1.1rem + 3.7vw, 4.1rem);
+    line-height: 1.01;
+    letter-spacing: -0.042em;
+}
+.h-card {
+    font-size: clamp(1.5rem, 1.15rem + 1.1vw, 2rem);
+    line-height: 1.08;
+    letter-spacing: -0.034em;
+}
 
-/* ---------- Buttons ---------- */
+.lede {
+    font-size: clamp(1.14rem, 1rem + .62vw, 1.42rem);
+    line-height: 1.38;
+    letter-spacing: -0.012em;
+    color: var(--ink-2);
+    max-width: 34em;
+}
+
+/* ---------- Buttons: purple capsules ---------- */
 .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.92rem 1.6rem;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    font-size: 0.93rem;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-    cursor: pointer;
-    transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+    justify-content: center;
+    gap: .6rem;
+    min-height: 58px;
+    padding: .85rem 1.9rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.014em;
+    transition: background-color .2s ease, scale .2s ease;
 }
-.btn svg {
-    width: 14px; height: 14px;
-    fill: none; stroke: currentColor; stroke-width: 1.6;
-    transition: transform 0.22s ease;
+.btn:hover { background: var(--accent-press); }
+.btn:active { scale: .98; }
+.btn svg, .link svg {
+    width: 17px; height: 17px; flex: none;
+    fill: none; stroke: currentColor; stroke-width: 2.1;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: translate .2s ease;
 }
-.btn:hover svg { transform: translateX(3px); }
+.btn:hover svg, .link:hover svg { translate: 3px 0; }
+.btn-sm { min-height: 46px; padding: .5rem 1.35rem; font-size: 1rem; }
 
-.btn-light { background: var(--on-dark); color: var(--black); }
-.btn-light:hover { background: #fff; }
-.btn-dark  { background: var(--ink); color: var(--cream); }
-.btn-dark:hover { background: #000; }
-.btn-line-light { border-color: rgba(246,243,236,.42); color: var(--on-dark); }
-.btn-line-light:hover { background: rgba(246,243,236,.1); border-color: var(--on-dark); }
-.btn-line-dark { border-color: var(--hair); color: var(--ink); }
-.btn-line-dark:hover { border-color: var(--ink); }
+/* The quiet partner to a button: words and an arrow. */
+.link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: 58px;
+    padding-inline: .6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.014em;
+    color: var(--accent);
+}
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.1rem; }
+
+/* ---------- Pill ---------- */
+.pill {
+    display: inline-flex;
+    align-items: center;
+    padding: .45rem 1rem;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+    line-height: 1.3;
+}
 
 /* ---------- Nav ---------- */
-.nav {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    z-index: 40;
-}
-.nav.solid {
-    position: sticky;
-    background: var(--cream);
-    border-bottom: 1px solid var(--hair);
-}
+/* Plain, on the page. The current page takes the app's tab selection:
+   a soft capsule and the accent. */
+.nav { padding-block: clamp(.6rem, 1.6vw, 1.1rem); }
 .nav-in {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    height: var(--nav);
+    gap: .5rem;
+    min-height: 56px;
 }
 .word {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.25rem;
-    letter-spacing: -0.015em;
+    gap: .6rem;
+    margin-right: auto;
+    font-size: 1.42rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
 }
-.word img { width: 25px; height: 25px; }
+.word img { width: 34px; height: 34px; }
 
-.links { display: flex; align-items: center; gap: 2.4rem; }
-.links ul { display: flex; align-items: center; gap: 2.4rem; list-style: none; }
-.links a {
-    font-size: 0.9rem;
-    font-weight: 400;
-    opacity: 0.78;
-    transition: opacity 0.2s ease;
+.links { display: flex; align-items: center; gap: .75rem; }
+.links ul { display: flex; align-items: center; gap: 2px; }
+.links ul a {
+    display: block;
+    padding: .6rem 1.1rem;
+    border-radius: 999px;
+    font-size: 1.03rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    transition: background-color .2s ease;
 }
-.links a:hover, .links a[aria-current="page"] { opacity: 1; }
-.links a.btn { opacity: 1; padding: 0.62rem 1.15rem; font-size: 0.86rem; }
-
-.nav-over { color: var(--on-dark); }
+.links ul a:hover { background: var(--raised); }
+.links ul a[aria-current="page"] {
+    background: var(--raised);
+    color: var(--accent);
+}
 
 .tog {
     display: none;
-    flex-direction: column;
-    justify-content: center;
+    align-content: center;
     gap: 5px;
-    width: 40px; height: 40px;
-    padding: 10px 8px;
-    cursor: pointer;
+    width: 46px; height: 46px;
+    flex: none;
+    padding: 0 13px;
+    border-radius: 50%;
+    background: var(--raised);
 }
 .tog i {
-    display: block; height: 1px;
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
     background: currentColor;
     transition: transform .28s ease, opacity .28s ease;
 }
-.tog[aria-expanded="true"] i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.tog[aria-expanded="true"] i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .tog[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
-.tog[aria-expanded="true"] i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.tog[aria-expanded="true"] i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ---------- Hero: cinematic, edge to edge ---------- */
-/* The hero is deliberately NOT the .inner element. An absolutely
-   positioned child of a grid container is confined to its grid area, so
-   when the hero was itself the grid the press strip got trapped inside a
-   single column instead of spanning the viewport. The grid now lives in a
-   wrapper, leaving the hero free to host full-bleed children. */
-.hero {
+/* ---------- Field ---------- */
+/* A soft ground in one of the mark's colours, clipped to a generous
+   corner, with two discs in its deeper step running off its corners.
+   The discs are sized from the field's height, as they are in the app,
+   and capped so a very tall field is not swallowed by one. */
+.field {
+    --d1: 90%;  --d1-max: 660px;
+    --d2: 50%;  --d2-max: 340px;
     position: relative;
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    padding-top: var(--nav);
-    overflow: clip;
-    background: var(--black);
-    color: var(--on-dark);
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: var(--r-field);
+    background: var(--f);
 }
-/* Takes the remaining height and centres within it, which leaves the
-   press strip as the last flow child sitting on the hero's bottom edge.
-   Absolute positioning was fragile here and left the strip stranded
-   mid-band with dead space under it. */
-.hero-grid {
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    width: 100%;
+.field::before,
+.field::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fd);
+    pointer-events: none;
+}
+.field::after {
+    height: min(var(--d1), var(--d1-max));
+    right: 0; bottom: 0;
+    transform: translate(41%, 48%);
+}
+.field::before {
+    height: min(var(--d2), var(--d2-max));
+    left: 6%; top: 0;
+    transform: translate(-50%, -54%);
+    opacity: .6;
+}
+.field-lilac { --f: var(--lilac); --fd: var(--lilac-deep); --fl: var(--lilac-lift); }
+.field-peach { --f: var(--peach); --fd: var(--peach-deep); --fl: var(--peach-lift); }
+.field-rose  { --f: var(--rose);  --fd: var(--rose-deep);  --fl: var(--rose-lift); }
+
+/* ---------- Arc ---------- */
+/* The signature shape: a heavy rounded stroke, drawn the way the mark's
+   "C" is. Each arc's circle has pathLength="100", so --p is how much of
+   the ring it covers. It draws once, when it comes into view. */
+.arc {
+    fill: none;
+    stroke: var(--accent);
+    stroke-linecap: round;
+    stroke-dasharray: var(--p, 0) 100;
+}
+.ring { fill: none; stroke: var(--fd, var(--raised)); }
+.dot  { fill: var(--accent); }
+.dot-soft { fill: var(--fl); }
+
+/* ---------- Hero ---------- */
+/* The 3D mark is the centrepiece. It sits whole on a disc in the field's
+   lighter step, the same stage the app gives its gauge, at the size the
+   scene was made for. The scene's own background is transparent, so the
+   field shows through. */
+.hero {
+    --hero-h: clamp(500px, calc(100svh - 190px), 680px);
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
-    gap: 2rem;
+    gap: clamp(1rem, 3vw, 3rem);
+    min-height: var(--hero-h);
+    padding: var(--pad);
 }
-.hero-art {
-    position: absolute;
-    inset: 0;
-    background: url("../img/3dbackground.jpg") center / cover no-repeat;
+.hero-copy .h-hero { max-width: 9.2ch; }
+.hero-copy .lede { margin-top: clamp(1.1rem, 2vw, 1.6rem); max-width: 25em; }
+.hero-copy .actions { margin-top: clamp(1.5rem, 2.6vw, 2.2rem); }
+
+.mark {
+    position: relative;
+    justify-self: center;
+    width: min(100%, calc(var(--hero-h) * .84));
+    aspect-ratio: 1;
 }
-/* Scrim weighted to the left so the headline always clears the art */
-.hero-art::after {
+.mark::before {
     content: "";
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(90deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.6) 38%, rgba(10,10,10,.12) 70%),
-        linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,0) 26%, rgba(10,10,10,.72) 100%);
+    border-radius: 50%;
+    background: var(--fl);
 }
-.hero-copy { position: relative; z-index: 2; }
-/* Slightly held back from the headline without dropping to unreadable. */
-.hero-copy .body-lg {
-    margin-top: 1.7rem;
-    color: rgba(246, 243, 236, 0.76);
+.mark-stage {
+    position: absolute;
+    inset: 6%;
 }
-.hero-copy .btn { margin-top: 2.6rem; }
-
-/* 3D mark, right side */
-.mark {
-    position: relative;
-    z-index: 2;
-    justify-self: center;
-    width: min(38vw, 420px);
-    aspect-ratio: 1;
-    perspective: 1400px;
-}
-.mark-tilt {
-    position: absolute; inset: 0;
-    transform: rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg));
-    transition: transform .55s cubic-bezier(.22,1,.36,1);
-    animation: hover 8s ease-in-out infinite;
-    will-change: transform;
-}
-/* --- Lighting ---------------------------------------------------------
-   One key light from the upper RIGHT, matching the bright sweep in the
-   background art. Everything below follows from that single decision:
-   shadows fall down and to the LEFT, and they soften and fade as they
-   travel away from the object. */
-
-/* Shading on the model itself. drop-shadow() traces the rendered
-   silhouette, so short offsets away from the key light darken the edges
-   turned from it. Kept tight on purpose: no glow, and no long throw that
-   would read as a shadow sitting behind the object. */
-.mark spline-viewer,
-.mark-still {
-    filter:
-        drop-shadow(-1px 1px 1px rgba(0, 0, 0, .6))
-        drop-shadow(-2px 3px 3px rgba(0, 0, 0, .42))
-        drop-shadow(-4px 5px 6px rgba(0, 0, 0, .26));
-}
-
+/* The scene moves on its own, following the pointer. Nothing is added to
+   that here: it only eases in once it has painted. */
 .mark spline-viewer {
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     width: 100%; height: 100%;
     opacity: 0;
-    transition: opacity 1s ease;
+    scale: .97;
+    transition: opacity .6s ease, scale .9s var(--ease);
 }
-.mark.live spline-viewer { opacity: 1; }
+.mark.live spline-viewer { opacity: 1; scale: 1; }
+/* The flat mark holds the place until then, and stays if the scene never
+   arrives. It is sized and placed to sit exactly where the scene's model
+   does, so one hands over to the other without a jump; it lingers a
+   moment as the scene fades in beneath it. */
 .mark-still {
-    position: absolute; inset: 0; margin: auto;
-    width: 52%; height: fit-content;
-    transition: opacity .7s ease;
+    position: absolute;
+    z-index: 1;
+    top: 49.3%; left: 59.5%;
+    width: 88%; height: auto;
+    translate: -50% -50%;
+    pointer-events: none;
+    transition: opacity .45s ease .25s;
 }
 .mark.live .mark-still { opacity: 0; }
+/* On a touch screen the scene has no pointer to follow, and a canvas
+   that takes touches would get in the way of scrolling the page. */
+@media (hover: none) {
+    .mark spline-viewer { pointer-events: none; }
+}
 
-@keyframes hover  { 0%,100% { translate: 0 0; }         50% { translate: 0 -13px; } } 50% { scale: .86 .88; opacity: .5; } } 50% { scale: .8 .85; opacity: .45; } }
-
-/* Press row pinned to the bottom of the hero, full width */
+/* ---------- Press ---------- */
+/* The logos are supplied white-on-transparent; here they are inverted
+   to ink. */
 .press {
-    position: relative;
-    z-index: 3;
-    width: 100%;
-    border-top: 1px solid var(--hair-dark);
-    background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,.55) 40%);
-}
-/* Centred column: label over a centred logo row, so the label no longer
-   hangs off the left edge with a gap before the logos. */
-.press-in {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 1.15rem;
-    padding-block: 1.9rem;
+    justify-content: space-between;
+    gap: .25rem clamp(1rem, 3vw, 3rem);
+    padding: clamp(.5rem, 1.4vw, 1rem) clamp(.5rem, 2.4vw, 2.25rem);
 }
-/* The strip sits on the dark hero but is not inside a .band-dark, so the
-   label needs its own light colour or it renders dark-on-dark. */
-.press .eyebrow {
-    color: var(--on-dark);
-    opacity: .82;
-    font-size: 0.95rem;
-    text-align: center;
+.press-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--ink-2);
 }
 .press ul {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    /* Sized so all five sit on one row at every width rather than
-       orphaning the last logo onto a second line. */
-    gap: clamp(1.75rem, 4vw, 4rem);
-    list-style: none;
+    gap: 0 clamp(.5rem, 3.4vw, 3.5rem);
 }
+.press a { display: block; border-radius: 16px; }
 .press img {
-    height: clamp(34px, 4.2vw, 56px);
+    height: clamp(64px, 8vw, 104px);
     width: auto;
     object-fit: contain;
-    opacity: .85;
-    transition: transform .28s cubic-bezier(.22,1,.36,1), opacity .28s cubic-bezier(.22,1,.36,1);
+    filter: invert(1);
+    opacity: .82;
+    transition: scale .28s var(--ease), opacity .28s var(--ease);
 }
-/* These logos are near-white on near-black, so lifting opacity to full made
-   them bloom and read as washing out rather than as a response. The hover is
-   a restrained lift of the single logo instead; transform leaves the row's
-   layout untouched, so the other four stay put. */
-.press a:hover img, .press a:focus-visible img {
-    transform: scale(1.08);
-    opacity: .95;
-}
+.press a:hover img, .press a:focus-visible img { scale: 1.08; opacity: 1; }
 
-/* ---------- Sections ---------- */
-.sec { padding-block: clamp(3.25rem, 6.5vw, 5.5rem); }
-.sec-sm { padding-block: clamp(3rem, 7vw, 5.5rem); }
-
-/* Labels sit directly above their content. A wide left rail stranded
-   these short labels in empty space and made them read as tacked on. */
-.eyebrow { display: block; }
-.rule-top { border-top: 1px solid var(--hair); }
-.band-dark .rule-top, .band-near .rule-top { border-top-color: var(--hair-dark); }
-
-/* Centred block: the statement and its paragraph share a centre axis
-   rather than hugging the left edge. */
-.lede-pair {
-    text-align: center;
-    margin-inline: auto;
-    max-width: 46rem;
-}
+/* ---------- Statement ---------- */
+/* Large words straight on the page. */
 .statement {
-    max-width: 20ch;
-    margin-inline: auto;
-    margin-bottom: 1.5rem;
-}
-.lede-pair .body-lg { max-width: 56ch; margin-inline: auto; }
-
-.points { margin-top: clamp(2.5rem, 5vw, 4rem); }
-
-/* Point rows: hairlines and space, not boxes */
-.points { display: grid; }
-.point {
     display: grid;
-    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
-    gap: clamp(1.5rem, 6vw, 5rem);
-    align-items: baseline;
-    padding-block: clamp(1.8rem, 3.5vw, 2.6rem);
-    border-top: 1px solid var(--hair);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 1.25rem clamp(1.5rem, 6vw, 6rem);
+    align-items: end;
+    padding-block: clamp(2.5rem, 7vw, 6rem) clamp(1.75rem, 3.6vw, 3rem);
 }
-.point:last-child { border-bottom: 1px solid var(--hair); }
-.band-dark .point, .band-dark .point:last-child { border-color: var(--hair-dark); }
-.point h3 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(1.35rem, 2.1vw, 1.8rem);
-    letter-spacing: -0.016em;
-    line-height: 1.3;
-}
-.point p { color: var(--ink-2); max-width: 52ch; }
-.band-dark .point p { color: var(--on-dark-2); }
+.statement .h-sec { max-width: 13ch; }
+.statement .lede { padding-bottom: .35em; }
 
-/* ---------- Page head ---------- */
-.head {
-    padding-top: clamp(4rem, 8vw, 6.5rem);
-    padding-bottom: clamp(2rem, 4vw, 3rem);
+/* ---------- Three fields, one emblem each ---------- */
+/* As the app's first-launch pages are: a field, and one emblem made of
+   an arc or a disc. */
+.trio {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gap);
 }
-.head .eyebrow { display: block; margin-bottom: 1.3rem; }
-.head .body-lg { margin-top: 1.6rem; }
+.trio .field {
+    --d1: 78%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.5rem;
+    min-height: clamp(360px, 35vw, 470px);
+    padding: clamp(1.5rem, 2.7vw, 2.4rem);
+}
+.trio .field::before { display: none; }
+.emblem {
+    width: clamp(118px, 13.5vw, 176px);
+    aspect-ratio: 1;
+    overflow: visible;
+}
+.trio p {
+    margin-top: .7rem;
+    font-size: clamp(1.06rem, 1rem + .25vw, 1.2rem);
+    line-height: 1.4;
+    color: var(--ink-2);
+    max-width: 24em;
+}
+
+/* ---------- Product: steps beside a fan of phones ---------- */
+.product {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .92fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    padding: var(--pad);
+}
+.product .lede { margin-top: 1.1rem; }
+
+.steps { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+.steps li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.1rem;
+    align-items: center;
+    padding-block: 1.1rem;
+    border-top: 1.5px solid var(--fd);
+}
+.steps li:last-child { border-bottom: 1.5px solid var(--fd); }
+.steps h3 {
+    font-size: 1.28rem;
+    font-weight: 700;
+    letter-spacing: -0.026em;
+    line-height: 1.2;
+}
+.steps p { margin-top: .15rem; color: var(--ink-2); line-height: 1.42; }
+
+/* The arc at badge size, around a step's number. */
+.badge {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 54px; height: 54px;
+    flex: none;
+}
+.badge svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.badge .ring, .badge .arc { stroke-width: 8; }
+.badge b {
+    position: relative;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* The app's own sentence. Set plainly: no warning colour. */
+.notice {
+    margin-top: 1.35rem;
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.4;
+    max-width: 30em;
+}
+
+/* ---------- Phone ---------- */
+/* A thin bezel in the mark's ink around a real screenshot. --w is the
+   phone's width; the corners follow from it. */
+.phone {
+    --w: 240px;
+    width: var(--w);
+    flex: none;
+    padding: calc(var(--w) * .026);
+    border-radius: calc(var(--w) * .168);
+    background: var(--ink);
+    box-shadow: var(--shadow-phone);
+}
+.phone img {
+    width: 100%; height: auto;
+    border-radius: calc(var(--w) * .144);
+}
+
+/* One phone in front, two tucked in behind it. */
+.fan {
+    --front: clamp(214px, 20.5vw, 282px);
+    position: relative;
+    height: calc(var(--front) * 2.34);
+}
+.fan .phone {
+    position: absolute;
+    top: 50%; left: 50%;
+}
+.fan .phone:nth-child(1) { --w: var(--front); z-index: 2; transform: translate(-50%, -50%); }
+.fan .phone:nth-child(2) { --w: calc(var(--front) * .86); transform: translate(-113%, -47%); }
+.fan .phone:nth-child(3) { --w: calc(var(--front) * .86); transform: translate(13%, -47%); }
+
+/* ---------- Page top: an inner page opens with large words ---------- */
+.page-top { padding-block: clamp(1.5rem, 5vw, 4.25rem) clamp(1.25rem, 3vw, 2.5rem); }
+.page-top .h-page { max-width: 13ch; }
+.page-top .lede { margin-top: clamp(1rem, 2vw, 1.5rem); }
 
 /* ---------- About ---------- */
 .about {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
-    gap: clamp(2.5rem, 7vw, 6rem);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
-    padding-block: clamp(3rem, 7vw, 6rem);
+    min-height: clamp(540px, calc(100svh - 150px), 780px);
+    padding: clamp(1.75rem, 3.6vw, 3rem) var(--pad);
 }
-.about .body-lg { margin-top: 1.7rem; }
-.about .actions { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.about .h-page {
+    max-width: 11ch;
+    font-size: clamp(2.5rem, 1rem + 4.4vw, 4.6rem);
+}
+.about .lede { margin-top: clamp(1.1rem, 2vw, 1.6rem); }
+.about .actions { margin-top: clamp(1.5rem, 2.6vw, 2.2rem); }
 
-.device { justify-self: center; text-align: center; }
-.device-shot {
-    width: clamp(200px, 22vw, 268px);
-    margin-inline: auto;
-    filter: drop-shadow(0 34px 60px rgba(20,19,15,.28));
+.device {
+    justify-self: center;
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    border-radius: var(--r-tile);
 }
-.device-shot img { width: 100%; height: auto; transition: transform .3s ease, opacity .3s ease; }
+.device .phone { --w: clamp(214px, 20vw, 262px); }
 .device-ctl {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.4rem;
-    margin-top: 2rem;
+    gap: .7rem;
 }
-.step {
-    display: grid; place-items: center;
-    width: 40px; height: 40px; flex: none;
-    border: 1px solid var(--hair);
+/* A white round button, as on the app's next-step field. */
+.round {
+    display: grid;
+    place-items: center;
+    width: 50px; height: 50px;
+    flex: none;
     border-radius: 50%;
-    cursor: pointer;
-    transition: border-color .22s ease, background-color .22s ease;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-tile);
+    transition: background-color .2s ease, scale .2s ease;
 }
-.step:hover { border-color: var(--ink); }
-.step svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; }
-.count { font-size: 0.82rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.round:hover { background: var(--raised); }
+.round:active { scale: .96; }
+.round svg {
+    width: 19px; height: 19px;
+    fill: none; stroke: currentColor; stroke-width: 2.3;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+.device-ctl .pill {
+    min-width: 13rem;
+    min-height: 50px;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-inline: 1.25rem;
+    font-size: 1rem;
+}
+.count {
+    font-weight: 500;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+}
 
 /* ---------- Team ---------- */
-.roster { display: grid; }
-.member {
+/* Each person on a field of their own; the photograph is the disc. */
+.roster {
     display: grid;
-    /* Wider left rail than other rows: the role titles are long */
-    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
-    gap: clamp(1.5rem, 4vw, 3.5rem);
-    padding-block: clamp(2.2rem, 4.5vw, 3.4rem);
-    border-top: 1px solid var(--hair);
-    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap);
 }
-.member:last-child { border-bottom: 1px solid var(--hair); }
-.who { display: flex; align-items: center; gap: 1.1rem; }
-.who img {
-    width: 68px; height: 68px; flex: none;
+.member {
+    --d1: 70%;
+    padding: clamp(1.5rem, 3.6vw, 3rem);
+}
+.member::before { display: none; }
+.member img {
+    width: clamp(104px, 11.5vw, 148px);
+    height: auto;
+    aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
 }
-.who h2 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(1.25rem, 1.95vw, 1.6rem);
-    letter-spacing: -0.016em;
-    line-height: 1.3;
+.member h2 { margin-top: clamp(1.25rem, 2.4vw, 2rem); }
+.member .role {
+    margin-top: .5rem;
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.35;
+    color: var(--accent);
+    max-width: 26em;
 }
-.who .role {
-    margin-top: 0.45rem;
-    font-size: 0.88rem;
-    color: var(--ink-3);
+.member .bio {
+    margin-top: 1.1rem;
     line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 34em;
 }
-.member .bio { color: var(--ink-2); max-width: 60ch; }
 
 /* ---------- Contact ---------- */
 .contact {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 7vw, 6rem);
-    align-items: start;
-    padding-bottom: clamp(4rem, 9vw, 7rem);
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: var(--gap);
+    align-items: stretch;
 }
-.note { border-top: 1px solid var(--hair); padding-top: 1.4rem; margin-top: 1.8rem; }
-.note:first-child { margin-top: 0; }
-.note h2 { font-size: 1rem; font-weight: 600; letter-spacing: -0.012em; margin-bottom: 0.4rem; }
-.note p { color: var(--ink-2); font-size: 0.96rem; }
-.note a { border-bottom: 1px solid var(--hair); padding-bottom: 2px; }
-.note a:hover { border-color: var(--ink); }
+.notes, .form { padding: clamp(1.5rem, 3.6vw, 3rem); }
+.notes { --d1: 60%; }
+.note + .note {
+    margin-top: clamp(1.25rem, 2.4vw, 1.9rem);
+    padding-top: clamp(1.25rem, 2.4vw, 1.9rem);
+    border-top: 1.5px solid var(--fd);
+}
+.note p { margin-top: .5rem; color: var(--ink-2); max-width: 28em; }
+.note a, .legal a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+}
+.note a:hover, .legal a:hover { text-decoration-thickness: 3px; }
+.note a { font-size: 1.15rem; }
 
-.f { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.9rem; }
-.f label {
-    font-size: 0.88rem;
-    color: var(--ink-3);
-}
+.form { --d1: 56%; }
+.form::before { display: none; }
+.f { display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1.35rem; }
+.f label { font-size: 1.06rem; font-weight: 600; letter-spacing: -0.012em; }
+/* The inputs are the white objects on the field. */
 .f input, .f textarea {
-    font-family: var(--sans);
-    font-size: 1.02rem;
+    font: inherit;
+    font-size: 1.1rem;
     color: var(--ink);
-    background: none;
+    background: var(--surface);
     border: 0;
-    border-bottom: 1px solid var(--hair);
-    padding: 0.65rem 0;
-    transition: border-color .22s ease;
+    border-radius: 18px;
+    padding: 1rem 1.15rem;
+    outline: 2.5px solid transparent;
+    outline-offset: 0;
+    transition: outline-color .2s ease;
 }
-.f textarea { resize: vertical; min-height: 96px; }
-.f input::placeholder, .f textarea::placeholder { color: var(--ink-3); }
-.f input:focus, .f textarea:focus { outline: none; border-bottom-color: var(--ink); }
-.hint { margin-top: 1rem; font-size: 0.82rem; color: var(--ink-3); }
+.f textarea { resize: vertical; min-height: 172px; }
+.f input::placeholder, .f textarea::placeholder { color: var(--ink-3); opacity: 1; }
+.f input:focus, .f textarea:focus { outline-color: var(--accent); }
+.form .hint { margin-top: 1rem; font-size: .98rem; color: var(--ink-2); }
 
 /* ---------- Legal ---------- */
-.legal { max-width: 64ch; padding-bottom: clamp(4rem, 9vw, 7rem); }
-.legal p { color: var(--ink-2); margin-bottom: 1rem; }
-.legal a { border-bottom: 1px solid var(--hair); }
-.legal a:hover { border-color: var(--ink); }
+.legal { padding: var(--pad); }
+.legal p {
+    font-size: clamp(1.06rem, 1rem + .3vw, 1.2rem);
+    line-height: 1.5;
+    max-width: 38em;
+}
+.legal p + p { margin-top: 1.1rem; }
 
 /* ---------- Footer ---------- */
-.foot { background: var(--black); color: var(--on-dark); }
+/* The page closes on a field: an invitation, then the map. */
+.foot { padding-block: var(--gap) var(--edge); }
+.foot-field {
+    --d1: 72%;  --d2: 38%;
+    padding: var(--pad);
+    padding-bottom: clamp(1.25rem, 2.4vw, 2rem);
+}
+.foot-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+    margin-bottom: clamp(1.75rem, 4vw, 3rem);
+    border-bottom: 1.5px solid var(--fd);
+}
+.foot-cta .lede { margin-top: 1.1rem; max-width: 30em; }
 .foot-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
-    gap: 2.5rem;
-    padding-block: clamp(3rem, 6vw, 4.5rem);
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, .7fr) minmax(0, .9fr) auto;
+    gap: 2rem clamp(1.5rem, 4vw, 4rem);
 }
-.foot-brand p { margin-top: 1rem; color: var(--on-dark-3); font-size: 0.9rem; max-width: 26ch; }
+.foot .word { margin-right: 0; }
+.foot-brand p {
+    margin-top: .9rem;
+    max-width: 22em;
+    color: var(--ink-2);
+}
 .foot h3 {
-    font-size: 0.92rem;
-    font-weight: 400;
-    color: var(--on-dark-3);
-    margin-bottom: 1.1rem;
+    margin-bottom: .9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    color: var(--ink-2);
 }
-.foot ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-.foot ul a { color: var(--on-dark-2); font-size: 0.92rem; transition: color .2s ease; }
-.foot ul a:hover { color: var(--on-dark); }
+.foot ul { display: flex; flex-direction: column; gap: .55rem; }
+.foot ul a {
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    overflow-wrap: anywhere;
+    text-decoration: underline transparent 2px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color .2s ease, color .2s ease;
+}
+.foot ul a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .foot-base {
-    display: flex; flex-wrap: wrap;
-    justify-content: space-between; gap: 0.6rem;
-    padding-block: 1.5rem;
-    border-top: 1px solid var(--hair-dark);
-    color: var(--on-dark-3);
-    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .5rem 2rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    font-size: .93rem;
+    color: var(--ink-2);
 }
+.foot-base p { max-width: 40em; }
 
 /* ---------- Motion ---------- */
+/* Gentle, and once: a block eases up as it comes into view, and an arc
+   inside it draws. Nothing loops except the mark's slow float. */
 html.js .up {
     opacity: 0;
-    translate: 0 14px;
-    transition: opacity .8s cubic-bezier(.22,1,.36,1), translate .8s cubic-bezier(.22,1,.36,1);
+    translate: 0 18px;
+    transition: opacity .8s var(--ease), translate .8s var(--ease);
     transition-delay: var(--d, 0s);
 }
 html.js .up.seen { opacity: 1; translate: 0 0; }
 
+html.js .up .arc {
+    stroke-dasharray: 0 100;
+    /* A little past the mark and back: the app's arc springs in. */
+    transition: stroke-dasharray 1.15s cubic-bezier(.3, 1.3, .5, 1);
+    transition-delay: calc(var(--d, 0s) + .25s + var(--ad, 0s));
+}
+html.js .up.seen .arc { stroke-dasharray: var(--p, 0) 100; }
+
+html.js .up .dot, html.js .up .dot-soft {
+    transform-box: fill-box;
+    transform-origin: center;
+    scale: .6;
+    opacity: 0;
+    transition: scale .9s cubic-bezier(.3, 1.3, .5, 1), opacity .5s ease;
+    transition-delay: calc(var(--d, 0s) + .25s + var(--ad, 0s));
+}
+html.js .up.seen .dot, html.js .up.seen .dot-soft { scale: 1; opacity: 1; }
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
+        animation: none !important;
         transition-duration: .01ms !important;
+        transition-delay: 0s !important;
     }
     html.js .up { opacity: 1; translate: 0 0; }
-    .press a:hover img, .press a:focus-visible img { transform: none; }
+    html.js .up .arc { stroke-dasharray: var(--p, 0) 100; }
+    html.js .up .dot, html.js .up .dot-soft { scale: 1; opacity: 1; }
+    .press a:hover img, .press a:focus-visible img,
+    .btn:active, .round:active { scale: 1; }
+    .btn:hover svg, .link:hover svg { translate: 0 0; }
 }
 
 /* ===========================================================
    Responsive
    =========================================================== */
 @media (max-width: 1000px) {
-    /* The hero deliberately keeps its two columns down to 760px. Stacking
-       it here while it was still locked to 100svh spread the copy and the
-       mark to opposite ends of a very tall band with a void between. */
-    .mark { width: min(34vw, 300px); }
-
-    .point, .member {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    .statement { max-width: none; }
-    .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
+    .statement { grid-template-columns: 1fr; align-items: start; }
+    .statement .h-sec { max-width: 14ch; }
+    .contact { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
+    .device-ctl .pill { min-width: 10.5rem; }
+
+    .product { grid-template-columns: 1fr; }
+    .fan { --front: clamp(214px, 34vw, 270px); }
+}
+
+@media (max-width: 860px) {
+    .about { grid-template-columns: 1fr; min-height: 0; padding-block: var(--pad); }
+    .about .h-page { max-width: 13ch; }
 }
 
 @media (max-width: 760px) {
-    .tog { display: flex; }
+    /* The mark leads and the words follow, centred beneath it: the
+       order of the app's own card, gauge then caption. */
+    .hero {
+        grid-template-columns: 1fr;
+        gap: clamp(1.25rem, 5vw, 2rem);
+        min-height: 0;
+        padding-block: clamp(1.5rem, 6vw, 2.5rem) clamp(1.75rem, 7vw, 3rem);
+        text-align: center;
+    }
+    .mark { order: -1; width: min(72%, 320px); }
+    .hero-copy .h-hero { max-width: 10ch; }
+    .hero-copy .h-hero, .hero-copy .lede { margin-inline: auto; }
+    .hero-copy .actions { justify-content: center; }
+
+    /* Each of the three becomes a row: emblem, then words. */
+    .trio { grid-template-columns: 1fr; }
+    .trio .field {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: clamp(1.1rem, 4vw, 2.25rem);
+        min-height: 0;
+    }
+    .emblem { width: clamp(84px, 22vw, 140px); flex: none; }
+
+    .roster { grid-template-columns: 1fr; }
+
+    .tog { display: grid; }
+    /* The menu drops down as a white card. */
     .links {
         position: absolute;
-        top: var(--nav);
-        left: var(--edge); right: var(--edge);
+        z-index: 30;
+        top: calc(100% + 6px);
+        left: 0; right: 0;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
-        padding: 0.6rem;
-        background: var(--cream);
-        color: var(--ink);
-        border: 1px solid var(--hair);
+        padding: 10px;
+        border-radius: var(--r-tile);
+        background: var(--surface);
+        border: 1px solid var(--divider);
+        box-shadow: var(--shadow-lift);
         opacity: 0;
-        pointer-events: none;
+        visibility: hidden;
         translate: 0 -6px;
-        transition: opacity .25s ease, translate .25s ease;
+        transition: opacity .25s ease, translate .25s ease, visibility 0s .25s;
     }
-    .links.open { opacity: 1; pointer-events: auto; translate: 0 0; }
-    .links ul { flex-direction: column; align-items: stretch; gap: 0; }
-    .links ul a { display: block; padding: 0.85rem 0.9rem; opacity: 1; }
-    .links a.btn { justify-content: center; margin-top: 0.5rem; }
-    .links .btn-line-light { border-color: var(--hair); color: var(--ink); }
-}
+    .links.open {
+        opacity: 1;
+        visibility: visible;
+        translate: 0 0;
+        transition-delay: 0s;
+    }
+    .links ul { flex-direction: column; align-items: stretch; gap: 2px; }
+    .links ul a { padding: .9rem 1.1rem; font-size: 1.15rem; }
+    .links .btn { margin-top: 8px; min-height: 54px; font-size: 1.1rem; }
 
-@media (max-width: 760px) {
-    /* The hero stops being locked to the full viewport: forcing 100svh
-       squeezed the mark and crushed the press strip onto the bottom edge.
-       It now sizes to its content with real breathing room. */
-    .hero {
-        min-height: 0;
-        padding-bottom: 0;
-        text-align: left;
-    }
-    .hero-grid {
-        flex: none;
-        grid-template-columns: 1fr;
-        gap: 0;
-        padding-block: clamp(2rem, 7vh, 3.5rem) clamp(1.5rem, 4vh, 2.5rem);
-    }
-    .hero-art::after {
-        background:
-            linear-gradient(180deg, rgba(10,10,10,.74) 0%, rgba(10,10,10,.46) 42%, rgba(10,10,10,.86) 100%);
-    }
-    .mark {
-        width: min(64vw, 270px);
-        margin-top: 2.25rem;
-    }
-    .press-in {
-        padding-block: 1.6rem 1.9rem;
-        gap: 0.95rem;
-    }
-    .press ul { gap: clamp(1.1rem, 5vw, 2rem); }
-    .press img { height: clamp(26px, 6.5vw, 34px); }
+    .press { justify-content: center; }
+    .press ul { gap: 0 clamp(.25rem, 2vw, 1rem); }
+    .press img { height: clamp(54px, 16vw, 80px); }
+
+    .foot-cta { grid-template-columns: 1fr; align-items: start; }
 }
 
 @media (max-width: 560px) {
-    .foot-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-    .who { flex-direction: column; align-items: flex-start; }
+    .hero-copy .actions, .about .actions { gap: .25rem 1rem; }
+    .hero-copy .actions .btn, .about .actions .btn, .foot-cta .btn { flex: 1 1 100%; width: 100%; }
+    .hero-copy .actions .link, .about .actions .link { flex: 1 1 100%; justify-content: center; }
+
+    .trio .field { align-items: flex-start; flex-direction: column; gap: 1.5rem; }
+    .emblem { width: 104px; }
+
+    .foot-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+    .badge { width: 48px; height: 48px; }
+    .steps li { gap: .9rem; }
 }

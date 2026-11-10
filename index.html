@@ -2,152 +2,259 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>OCRadar</title>
 <meta name="description" content="OCRadar uses artificial intelligence and machine learning to help medical professionals and the general public detect oral cancer early.">
 <meta property="og:title" content="OCRadar">
 <meta property="og:description" content="A new way to detect oral cancer with AI-powered early detection.">
 <meta property="og:url" content="https://ocradar.com/">
 <meta property="og:image" content="https://ocradar.com/assets/img/OCRadarLogo.png">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FBF7F3">
 <link rel="icon" href="/assets/img/OCRadarLogo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/app.css">
 <script>document.documentElement.classList.add("js");</script>
 <script src="/assets/js/app.js" defer></script>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://prod.spline.design" crossorigin>
 <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.53/build/spline-viewer.js"></script>
 </head>
 <body>
 
-<header class="nav nav-over">
-  <div class="inner nav-in">
-    <a class="word" href="/">
-      <img src="/assets/img/OCRadarLogo.png" alt="">
-      <span>OCRadar</span>
-    </a>
-    <nav class="links" id="links" aria-label="Main">
-      <ul>
-        <li><a href="/" aria-current="page">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/team/">Team</a></li>
-      </ul>
-      <a class="btn btn-line-light" href="/contact/">Contact us</a>
-    </nav>
-    <button class="tog" aria-expanded="false" aria-controls="links" aria-label="Menu">
-      <i></i><i></i><i></i>
-    </button>
+<header class="nav">
+  <div class="inner">
+    <div class="nav-in">
+      <a class="word" href="/">
+        <img src="/assets/img/OCRadarLogo.png" alt="">
+        <span>OCRadar</span>
+      </a>
+      <nav class="links" id="links" aria-label="Main">
+        <ul>
+          <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/team/">Team</a></li>
+        </ul>
+        <a class="btn btn-sm" href="/contact/">Contact us</a>
+      </nav>
+      <button class="tog" aria-expanded="false" aria-controls="links" aria-label="Menu">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
   </div>
 </header>
 
 <main>
 
-  <section class="hero">
-    <div class="hero-art" aria-hidden="true"></div>
-
-    <div class="inner hero-grid">
-    <div class="hero-copy">
-      <h1 class="display d-1 up">A new way to detect oral cancer.</h1>
-      <p class="body-lg up" style="--d:.08s">
-        Artificial intelligence and machine learning for early detection,
-        made for both medical professionals and the general public.
-      </p>
-      <a class="btn btn-light up" href="/about/" style="--d:.16s">
-        Learn more
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
-      </a>
-    </div>
-
-    <div class="mark up" id="mark" style="--d:.2s">
-      <div class="mark-tilt">
-        <img class="mark-still" src="/assets/img/OCRadarLogo.png" alt="">
-        <spline-viewer url="https://prod.spline.design/VUBT7xxQ3qdPOztO/scene.splinecode" aria-label="Interactive 3D OCRadar logo"></spline-viewer>
+  <section class="inner">
+    <div class="field field-lilac hero">
+      <div class="hero-copy">
+        <h1 class="h-hero up">A new way to detect oral cancer.</h1>
+        <p class="lede up" style="--d:.08s">
+          Artificial intelligence and machine learning for early detection,
+          made for both medical professionals and the general public.
+        </p>
+        <div class="actions up" style="--d:.16s">
+          <a class="btn" href="/about/">
+            Learn more
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+          </a>
+          <a class="link" href="/team/">
+            Meet the team
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
       </div>
-    </div>
-    </div>
 
-    <div class="press">
-      <div class="inner press-in">
-        <span class="eyebrow">Featured on</span>
-        <ul>
-          <li><a href="https://wtop.com/fairfax-county/2025/04/fairfax-co-students-crafting-app-to-find-signs-of-oral-cancer/" target="_blank" rel="noopener noreferrer" aria-label="WTOP"><img src="/assets/img/wtop.png" alt="WTOP logo" loading="lazy"></a></li>
-          <li><a href="https://www.fcps.edu/news/sixteen-years-old-and-solving-world-problems-oakton-high-school-juniors-tackle-oral-cancer" target="_blank" rel="noopener noreferrer" aria-label="FCPS"><img src="/assets/img/fcps.png" alt="FCPS logo" loading="lazy"></a></li>
-          <li><a href="http://dc.koreatimes.com/article/20250409/1559471" target="_blank" rel="noopener noreferrer" aria-label="Korea Times"><img src="/assets/img/koreatimes.png" alt="Korea Times logo" loading="lazy"></a></li>
-          <li><a href="https://www.secretchina.com/news/gb/2025/04/10/1080410.html" target="_blank" rel="noopener noreferrer" aria-label="Vision Times China"><img src="/assets/img/visiontimeschina.png" alt="Vision Times China logo" loading="lazy"></a></li>
-          <li><a href="https://www.instagram.com/techroastshow/reel/DJh3DyTxumJ/" target="_blank" rel="noopener noreferrer" aria-label="Techroast Show"><img src="/assets/img/techroastshow.png" alt="Techroast Show logo" loading="lazy"></a></li>
-        </ul>
+      <div class="mark up" id="mark" style="--d:.1s">
+        <div class="mark-stage">
+          <spline-viewer url="https://prod.spline.design/VUBT7xxQ3qdPOztO/scene.splinecode" aria-label="Interactive 3D OCRadar logo"></spline-viewer>
+          <img class="mark-still" src="/assets/img/OCRadarLogo.png" alt="" width="500" height="500" fetchpriority="high">
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="band band-cream sec">
-    <div class="inner">
-      <div class="lede-pair">
-        <h2 class="display d-2 statement up" style="--d:.06s">
-          Early detection, made accessible to everyone.
-        </h2>
-        <p class="body-lg up" style="--d:.12s">
-          OCRadar harnesses artificial intelligence to make early detection of
-          oral cancer accessible to everyone, improving the chances of
-          successful treatment.
+  <section class="inner" aria-label="Press">
+    <div class="press up">
+      <span class="press-label">Featured on</span>
+      <ul>
+        <li><a href="https://wtop.com/fairfax-county/2025/04/fairfax-co-students-crafting-app-to-find-signs-of-oral-cancer/" target="_blank" rel="noopener noreferrer" aria-label="WTOP"><img src="/assets/img/wtop.png" alt="WTOP logo" width="400" height="400" loading="lazy"></a></li>
+        <li><a href="https://www.fcps.edu/news/sixteen-years-old-and-solving-world-problems-oakton-high-school-juniors-tackle-oral-cancer" target="_blank" rel="noopener noreferrer" aria-label="FCPS"><img src="/assets/img/fcps.png" alt="FCPS logo" width="400" height="400" loading="lazy"></a></li>
+        <li><a href="http://dc.koreatimes.com/article/20250409/1559471" target="_blank" rel="noopener noreferrer" aria-label="Korea Times"><img src="/assets/img/koreatimes.png" alt="Korea Times logo" width="400" height="400" loading="lazy"></a></li>
+        <li><a href="https://www.secretchina.com/news/gb/2025/04/10/1080410.html" target="_blank" rel="noopener noreferrer" aria-label="Vision Times China"><img src="/assets/img/visiontimeschina.png" alt="Vision Times China logo" width="400" height="400" loading="lazy"></a></li>
+        <li><a href="https://www.instagram.com/techroastshow/reel/DJh3DyTxumJ/" target="_blank" rel="noopener noreferrer" aria-label="Techroast Show"><img src="/assets/img/techroastshow.png" alt="Techroast Show logo" width="400" height="400" loading="lazy"></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="inner">
+    <div class="statement up">
+      <h2 class="h-sec">Early detection, made accessible to everyone.</h2>
+      <p class="lede">
+        OCRadar harnesses artificial intelligence to make early detection of
+        oral cancer accessible to everyone, improving the chances of
+        successful treatment.
+      </p>
+    </div>
+
+    <div class="trio">
+      <article class="field field-lilac up">
+        <svg class="emblem" viewBox="0 0 160 160" aria-hidden="true">
+          <g transform="rotate(-90 80 80)">
+            <circle class="ring" cx="80" cy="80" r="62" stroke-width="30"/>
+            <circle class="arc" cx="80" cy="80" r="62" stroke-width="30" pathLength="100" style="--p:24"/>
+          </g>
+        </svg>
+        <div>
+          <h3 class="h-card">Early detection</h3>
+          <p>Catching oral cancer sooner, when treatment has the greatest chance of success.</p>
+        </div>
+      </article>
+
+      <article class="field field-peach up" style="--d:.08s">
+        <svg class="emblem" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="dot-soft" cx="106" cy="80" r="52" style="--ad:.12s"/>
+          <circle class="dot" cx="54" cy="80" r="52"/>
+        </svg>
+        <div>
+          <h3 class="h-card">For professionals and the public</h3>
+          <p>A sophisticated tool for clinicians that stays simple enough for everyday use.</p>
+        </div>
+      </article>
+
+      <article class="field field-rose up" style="--d:.16s">
+        <svg class="emblem" viewBox="0 0 160 160" aria-hidden="true">
+          <g transform="rotate(43 80 80)">
+            <circle class="arc" cx="80" cy="80" r="67" stroke-width="20" pathLength="100" style="--p:76"/>
+            <circle class="arc" cx="80" cy="80" r="41" stroke-width="20" pathLength="100" style="--p:76; --ad:.1s; opacity:.6"/>
+            <circle class="arc" cx="80" cy="80" r="15" stroke-width="20" pathLength="100" style="--p:76; --ad:.2s; opacity:.32"/>
+          </g>
+        </svg>
+        <div>
+          <h3 class="h-card">Across platforms</h3>
+          <p>Built for Apple, Android, and Windows, on the devices people already use.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="inner">
+    <div class="field field-peach product">
+      <div class="up">
+        <h2 class="h-sec">Take a photo.<br>See how similar<br>it looks.</h2>
+        <p class="lede">
+          OCRadar compares your photo with reference images and shows how
+          visually similar it looks to each category.
+        </p>
+
+        <ol class="steps">
+          <li style="--p:33.4">
+            <span class="badge" aria-hidden="true">
+                <svg viewBox="0 0 54 54"><circle class="ring" cx="27" cy="27" r="23"/><circle class="arc" cx="27" cy="27" r="23" pathLength="100"/></svg>
+                <b>1</b>
+              </span>
+            <div>
+              <h3>Take a photo</h3>
+              <p>Photograph the area you want to check with your phone’s camera.</p>
+            </div>
+          </li>
+          <li style="--p:66.7; --ad:.1s">
+            <span class="badge" aria-hidden="true">
+                <svg viewBox="0 0 54 54"><circle class="ring" cx="27" cy="27" r="23"/><circle class="arc" cx="27" cy="27" r="23" pathLength="100"/></svg>
+                <b>2</b>
+              </span>
+            <div>
+              <h3>See the comparison</h3>
+              <p>The app shows how closely it resembles each reference category, as a percentage.</p>
+            </div>
+          </li>
+          <li style="--p:100; --ad:.2s">
+            <span class="badge" aria-hidden="true">
+                <svg viewBox="0 0 54 54"><circle class="ring" cx="27" cy="27" r="23"/><circle class="arc" cx="27" cy="27" r="23" pathLength="100"/></svg>
+                <b>3</b>
+              </span>
+            <div>
+              <h3>Know the next step</h3>
+              <p>Each comparison comes with a suggested next step, such as mentioning it at your next dental visit.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="notice">
+          A visual comparison, not a diagnosis. Only a dentist or physician can tell you what this is.
         </p>
       </div>
 
-      <div class="points">
-        <div class="point up">
-          <h3>Early detection</h3>
-          <p>Catching oral cancer sooner, when treatment has the greatest chance of success.</p>
-        </div>
-        <div class="point up" style="--d:.06s">
-          <h3>For professionals and the public</h3>
-          <p>A sophisticated tool for clinicians that stays simple enough for everyday use.</p>
-        </div>
-        <div class="point up" style="--d:.12s">
-          <h3>Across platforms</h3>
-          <p>Built for Apple, Android, and Windows, on the devices people already use.</p>
-        </div>
+      <div class="fan up" role="group" aria-label="Screens from the OCRadar app" style="--d:.1s">
+        <figure class="phone">
+          <img src="/assets/img/app-summary.webp" width="804" height="1748" loading="lazy" decoding="async"
+               alt="Summary screen: the latest comparison as an arc gauge reading 54% visual similarity, marked as a demo result.">
+        </figure>
+        <figure class="phone">
+          <img src="/assets/img/app-history.webp" width="804" height="1748" loading="lazy" decoding="async"
+               alt="History screen: past comparisons, each with its closest reference category and how similar it looked.">
+        </figure>
+        <figure class="phone">
+          <img src="/assets/img/app-comparison.webp" width="804" height="1748" loading="lazy" decoding="async"
+               alt="Comparison screen: 32% visual similarity, with the notice that this is a visual comparison, not a diagnosis.">
+        </figure>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer class="band foot">
+<footer class="foot">
   <div class="inner">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="word" href="/">
-          <img src="/assets/img/OCRadarLogo.png" alt="">
-          <span>OCRadar</span>
+    <div class="field field-rose foot-field">
+      <div class="foot-cta">
+        <div>
+          <h2 class="h-sec">We’re here to help.</h2>
+          <p class="lede">
+            Whether you have questions about our products, want to explore sponsorship
+            opportunities, or are eager to join our team, we’d love to hear from you.
+          </p>
+        </div>
+        <a class="btn" href="/contact/">
+          Contact us
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
         </a>
-        <p>AI-powered early detection of oral cancer.</p>
       </div>
-      <div>
-        <h3>Pages</h3>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/team/">Team</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="word" href="/">
+            <img src="/assets/img/OCRadarLogo.png" alt="">
+            <span>OCRadar</span>
+          </a>
+          <p>AI-powered early detection of oral cancer.</p>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/team/">Team</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="/terms/">Terms of Use</a></li>
+            <li><a href="/privacy/">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="/terms/">Terms of Use</a></li>
-          <li><a href="/privacy/">Privacy Policy</a></li>
-        </ul>
+      <div class="foot-base">
+        <p>OCRadar is a screening aid and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
+        <span>© 2026 OCRadar · All rights reserved</span>
       </div>
-      <div>
-        <h3>Contact</h3>
-        <ul>
-          <li><a href="mailto:ocradar.contact@gmail.com">ocradar.contact@gmail.com</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="foot-base">
-      <span>© 2026 OCRadar</span>
-      <span>All rights reserved</span>
     </div>
   </div>
 </footer>
