@@ -55,6 +55,8 @@
     --r-tile:  26px;
 
     --edge: clamp(14px, 3vw, 36px);
+    --nav-pad: clamp(.6rem, 1.6vw, 1.1rem);
+    --nav-h: 56px;
     --max:  1280px;
     --gap:  clamp(12px, 1.6vw, 20px);
     --pad:  clamp(1.5rem, 5vw, 4.5rem);
@@ -210,15 +212,14 @@ main {
 }
 
 /* ---------- Nav ---------- */
-/* Plain, on the page. The current page takes the app's tab selection:
-   a soft capsule and the accent. */
-.nav { padding-block: clamp(.6rem, 1.6vw, 1.1rem); }
+/* Plain, on the page. The current page is marked the way the app marks
+   things: the accent, and a small disc. */
+.nav { padding-block: var(--nav-pad); }
 .nav-in {
-    position: relative;
     display: flex;
     align-items: center;
     gap: .5rem;
-    min-height: 56px;
+    min-height: var(--nav-h);
 }
 .word {
     display: flex;
@@ -231,28 +232,35 @@ main {
 }
 .word img { width: 34px; height: 34px; }
 
-.links { display: flex; align-items: center; gap: .75rem; }
-.links ul { display: flex; align-items: center; gap: 2px; }
+.links { display: flex; align-items: center; gap: 1.1rem; }
+.links ul { display: flex; align-items: center; gap: .25rem; }
 .links ul a {
+    position: relative;
     display: block;
-    padding: .6rem 1.1rem;
-    border-radius: 999px;
-    font-size: 1.03rem;
+    padding: .65rem .95rem;
+    border-radius: 12px;
+    font-size: 1.05rem;
     font-weight: 600;
-    letter-spacing: -0.012em;
-    transition: background-color .2s ease;
+    letter-spacing: -0.014em;
+    transition: color .2s ease;
 }
-.links ul a:hover { background: var(--raised); }
-.links ul a[aria-current="page"] {
-    background: var(--raised);
-    color: var(--accent);
+.links ul a:hover,
+.links ul a[aria-current="page"] { color: var(--accent); }
+.links ul a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: .1rem;
+    width: 6px; height: 6px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: var(--accent);
 }
 
 .tog {
     display: none;
     align-content: center;
-    gap: 5px;
-    width: 46px; height: 46px;
+    gap: 6px;
+    width: 48px; height: 48px;
     flex: none;
     padding: 0 13px;
     border-radius: 50%;
@@ -261,14 +269,14 @@ main {
 .tog i {
     display: block;
     width: 100%;
-    height: 2px;
+    height: 2.5px;
     border-radius: 2px;
     background: currentColor;
-    transition: transform .28s ease, opacity .28s ease;
+    transition: transform .3s var(--ease), opacity .2s ease;
 }
-.tog[aria-expanded="true"] i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.tog[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
-.tog[aria-expanded="true"] i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* Two bars, which cross to close. */
+.tog[aria-expanded="true"] i:nth-child(1) { transform: translateY(4.25px) rotate(45deg); }
+.tog[aria-expanded="true"] i:nth-child(2) { transform: translateY(-4.25px) rotate(-45deg); }
 
 /* ---------- Field ---------- */
 /* A soft ground in one of the mark's colours, clipped to a generous
@@ -358,21 +366,24 @@ main {
     position: absolute;
     inset: 6%;
 }
-/* The scene moves on its own, following the pointer. Nothing is added to
-   that here: it only eases in once it has painted. */
+/* The scene moves on its own, turning to follow the pointer. Nothing is
+   added to that here: it only eases in once it has painted. */
 .mark spline-viewer {
     position: absolute;
     inset: 0;
     width: 100%; height: 100%;
     opacity: 0;
-    scale: .97;
+    scale: .96;
     transition: opacity .6s ease, scale .9s var(--ease);
 }
 .mark.live spline-viewer { opacity: 1; scale: 1; }
-/* The flat mark holds the place until then, and stays if the scene never
-   arrives. It is sized and placed to sit exactly where the scene's model
-   does, so one hands over to the other without a jump; it lingers a
-   moment as the scene fades in beneath it. */
+
+/* The flat mark is the stand-in: what shows without script, and what
+   the script brings in if the scene is slow or never arrives. The two
+   are never on screen together. The scene's model is usually mid-turn
+   when it appears, so a cross-fade between them reads as a double
+   image; instead the flat mark leaves first and the scene follows.
+   It is sized and placed to sit where the model rests. */
 .mark-still {
     position: absolute;
     z-index: 1;
@@ -380,9 +391,12 @@ main {
     width: 88%; height: auto;
     translate: -50% -50%;
     pointer-events: none;
-    transition: opacity .45s ease .25s;
+    transition: opacity .25s ease;
 }
-.mark.live .mark-still { opacity: 0; }
+html.js .mark-still { opacity: 0; }
+html.js .mark.fallback .mark-still { opacity: 1; transition-duration: .5s; }
+html.js .mark.live .mark-still { opacity: 0; transition-duration: .25s; }
+.mark.fallback.live spline-viewer { transition-delay: .25s; }
 /* On a touch screen the scene has no pointer to follow, and a canvas
    that takes touches would get in the way of scrolling the page. */
 @media (hover: none) {
@@ -810,6 +824,7 @@ html.js .up.seen .dot, html.js .up.seen .dot-soft { scale: 1; opacity: 1; }
     html.js .up { opacity: 1; translate: 0 0; }
     html.js .up .arc { stroke-dasharray: var(--p, 0) 100; }
     html.js .up .dot, html.js .up .dot-soft { scale: 1; opacity: 1; }
+    .links li { opacity: 1; translate: 0 0; }
     .press a:hover img, .press a:focus-visible img,
     .btn:active, .round:active { scale: 1; }
     .btn:hover svg, .link:hover svg { translate: 0 0; }
@@ -862,35 +877,100 @@ html.js .up.seen .dot, html.js .up.seen .dot-soft { scale: 1; opacity: 1; }
 
     .roster { grid-template-columns: 1fr; }
 
+    /* The bar stays within reach while the page scrolls. */
+    .nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: var(--canvas);
+    }
     .tog { display: grid; }
-    /* The menu drops down as a white card. */
+    .word, .tog { position: relative; z-index: 2; }
+
+    /* The menu is a sheet, composed as the app's are: a field of large
+       words, and one purple capsule beneath it. */
+    html.menu-open { overflow: hidden; }
     .links {
-        position: absolute;
-        z-index: 30;
-        top: calc(100% + 6px);
-        left: 0; right: 0;
+        position: fixed;
+        z-index: 1;
+        inset: 0;
         flex-direction: column;
         align-items: stretch;
-        gap: 0;
-        padding: 10px;
-        border-radius: var(--r-tile);
-        background: var(--surface);
-        border: 1px solid var(--divider);
-        box-shadow: var(--shadow-lift);
+        gap: var(--gap);
+        padding:
+            calc(var(--nav-h) + 2 * var(--nav-pad))
+            max(var(--edge), env(safe-area-inset-right))
+            max(var(--edge), env(safe-area-inset-bottom))
+            max(var(--edge), env(safe-area-inset-left));
+        background: var(--canvas);
         opacity: 0;
         visibility: hidden;
-        translate: 0 -6px;
-        transition: opacity .25s ease, translate .25s ease, visibility 0s .25s;
+        transition: opacity .25s ease, visibility 0s .25s;
     }
     .links.open {
         opacity: 1;
         visibility: visible;
-        translate: 0 0;
         transition-delay: 0s;
     }
-    .links ul { flex-direction: column; align-items: stretch; gap: 2px; }
-    .links ul a { padding: .9rem 1.1rem; font-size: 1.15rem; }
-    .links .btn { margin-top: 8px; min-height: 54px; font-size: 1.1rem; }
+    .links ul {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        flex: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: clamp(1.4rem, 7vw, 2.5rem);
+        border-radius: var(--r-field);
+        background: var(--lilac);
+    }
+    .links ul::before,
+    .links ul::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--lilac-deep);
+    }
+    .links ul::after {
+        height: min(78%, 520px);
+        right: 0; bottom: 0;
+        transform: translate(41%, 44%);
+    }
+    .links ul::before {
+        height: 34%;
+        right: 8%; top: 0;
+        transform: translate(50%, -58%);
+        opacity: .6;
+    }
+    .links ul a {
+        padding: .1em 0;
+        font-size: clamp(2.9rem, 15vw, 4.6rem);
+        font-weight: 700;
+        letter-spacing: -0.05em;
+        line-height: 1.08;
+    }
+    /* Here the disc sits after the word. */
+    .links ul a[aria-current="page"]::after {
+        position: static;
+        display: inline-block;
+        width: .2em; height: .2em;
+        margin-left: .16em;
+        vertical-align: .08em;
+    }
+    .links .btn { min-height: 62px; font-size: 1.2rem; }
+
+    /* The words rise in, one after another. */
+    .links li { opacity: 0; translate: 0 14px; }
+    .links.open li {
+        opacity: 1;
+        translate: 0 0;
+        transition: opacity .5s var(--ease), translate .5s var(--ease);
+    }
+    .links.open li:nth-child(1) { transition-delay: .06s; }
+    .links.open li:nth-child(2) { transition-delay: .12s; }
+    .links.open li:nth-child(3) { transition-delay: .18s; }
 
     .press { justify-content: center; }
     .press ul { gap: 0 clamp(.25rem, 2vw, 1rem); }

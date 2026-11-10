@@ -8,13 +8,18 @@
     const tog = document.querySelector(".tog");
     const links = document.getElementById("links");
     if (tog && links) {
-        const shut = () => {
-            links.classList.remove("open");
-            tog.setAttribute("aria-expanded", "false");
-        };
-        tog.addEventListener("click", () => {
-            const open = links.classList.toggle("open");
+        // On a phone the menu is a full sheet, so the page behind it is
+        // held still while it is open.
+        const set = (open) => {
+            links.classList.toggle("open", open);
+            document.documentElement.classList.toggle("menu-open", open);
             tog.setAttribute("aria-expanded", String(open));
+            tog.setAttribute("aria-label", open ? "Close menu" : "Menu");
+        };
+        const shut = () => set(false);
+        tog.addEventListener("click", () => set(!links.classList.contains("open")));
+        links.addEventListener("click", (e) => {
+            if (e.target.closest("a")) shut();
         });
         document.addEventListener("click", (e) => {
             if (links.classList.contains("open") &&
@@ -56,7 +61,6 @@
             // Not every build fires that event, so also watch the canvas.
             // The viewer keeps it hidden until the scene has painted, so
             // "visible" is the signal; a canvas merely existing is not.
-            // If it never arrives, the still mark stays.
             let n = 0;
             const poll = setInterval(() => {
                 const cv = viewer.shadowRoot && viewer.shadowRoot.querySelector("canvas");
@@ -67,6 +71,14 @@
                     clearInterval(poll);
                 }
             }, 150);
+            // A scene that is ready quickly simply eases in on its empty
+            // stage. One that is slow, or never arrives, gets the flat
+            // mark in its place after a short wait.
+            setTimeout(() => {
+                if (!mark.classList.contains("live")) mark.classList.add("fallback");
+            }, 1600);
+        } else {
+            mark.classList.add("fallback");
         }
     }
 
