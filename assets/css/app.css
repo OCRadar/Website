@@ -547,9 +547,11 @@ html.js .mark.live .mark-still { opacity: 0; transition-duration: .25s; }
     background: var(--ink);
     box-shadow: var(--shadow-phone);
 }
+/* The screen is cream until its screenshot arrives, not a dark slab. */
 .phone img {
     width: 100%; height: auto;
     border-radius: calc(var(--w) * .144);
+    background: var(--canvas);
 }
 
 /* One phone in front, two tucked in behind it. */
